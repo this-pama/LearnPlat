@@ -1,0 +1,78 @@
+<div>
+    <header id="main-header" class="bg-primary text-white">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h1><i class="fa fa-user"></i>  LearnPlat Admin</h1>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
+              <button ng-show="adminReg" class="btn btn-success pt-5 mt-5 btn-lg" ng-click=adminRegister()>Register New Admin</button>
+              <button ng-show="adminLogin" class="btn btn-success pt-5 mt-5 btn-lg" ng-click="go('/adminuser')">Admin Login</button>
+              <button ng-show="outBtn" ng-click="go('/adminsignout')" class="btn btn-success pt-5 mt-5 btn-lg">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+    <!-- <div class="col-md-2 col-lg-2"></div> -->
+    <div class="container text-center">
+        <!--container-->
+        <div class=""><h2>{{title}}</h2><br><hr>
+        <h3 class="text-center">{{info}}</h3>
+        <form name="addQuestForm"  class="form-signin2" ng-submit="checkSendData()">
+
+            <h2 class="form-signin-heading" style="color: #000000;">Please Add Question Here</h2>
+            <p>check the correct answer</p>         
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-group">Question</label><br>
+                <textarea type="text" cols="30" rows="10" name="editor1" class="input-block-level" placeholder="Question" ng-model="question.q" ng-minlength="4" required></textarea>
+            </div>
+            <div class="form-group bg-faded p-3">
+                <label for="file">Image Upload</label>
+                <input type="file" id="file" class="form-control-file">
+                <small class="forrm-text text-muted" id="fileHelp">Max Size 3MB</small>
+            </div>
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-group">Question Name</label><br>
+                <input type="text" class="input-block-level" placeholder="Question name" ng-model="question.q_name" ng-minlength="4" required>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-group">Answer 1</label><br>
+                <input type="radio" ng-model="question.r_a" value="a1">
+                <input type="text" class="input-block-level" placeholder="Answer 1" ng-model="question.a1" ng-minlength="3"  required>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-group">Answer 2</label><br>
+                <input type="radio" ng-model="question.r_a" value="a2">
+                <input type="text" class="input-block-level" placeholder="Answer 2" ng-model="question.a2" ng-minlength="3"  required>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-group">Answer 3</label><br>
+                <input type="radio" ng-model="question.r_a" value="a3">
+                <input type="text" class="input-block-level" placeholder="Answer 3" ng-model="question.a3" ng-minlength="3"  required>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-group">Answer 4</label><br>
+                <input type="radio" ng-model="question.r_a" value="a4">
+                <input type="text" class="input-block-level" placeholder="Answer 4" ng-model="question.a4" ng-minlength="3"  required>
+            </div>
+          <span style="color: red">{{error}}</span>
+          <span style="color: green">{{success}}</span><br>
+
+
+            <button class="btn btn-large btn-success" type="submit" ng-disabled="!addQuestForm.$valid">Add Question</button>
+
+        </form>
+        </div>
+
+    </div><!--container-->
+    <br><hr>
+
+    <!-- <div class="col-md-2 col-lg-2"></div> -->
+</div>
+

@@ -1,0 +1,62 @@
+    <div>
+    <header id="main-header" class="bg-primary text-white">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h1><i class="fa fa-user"></i>  LearnPlat Admin</h1>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
+              <button ng-show="adminReg" class="btn btn-success pt-5 mt-5 btn-lg" ng-click=adminRegister()>Register New Admin</button>
+              <button ng-show="adminLogin" class="btn btn-success pt-5 mt-5 btn-lg" ng-click="go('/adminuser')">Admin Login</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!--ACTIONS-->
+      <section class="py-4 mb-4 bg-faded" id="actions">
+      	<div class="container">
+      		<div class="row">
+
+      	   </div>
+      </section>
+
+      <!--Login -->
+      <div class="col-md-3"></div>
+      <section id="login">
+      	<div class="container">
+      		<div class="row">
+      			<div class="col-md-6 offset-md-3">
+      				<div class="card-hearder">
+      					<h3>Register New Admin</h3><br>
+      				</div>
+      				<div class="card-block">
+                <form  name="signInAdmin" ng-submit="checkSendData()">
+                <div class="form-group">
+                  <label for="name" class="form-control-label">Full Name</label>
+                  <input type="text" class="form-control" ng-model="admin.name" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-control-label">Email</label>
+                  <input type="email" class="form-control" ng-model="admin.email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-control-label">Password</label>
+                  <input type="password" class="form-control" ng-model="admin.pass" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-control-label">Confirm Password</label>
+                  <input type="password" class="form-control" ng-model="admin.re_pass" ng-minlength="5" required>  
+                </div>
+                <p style="color: red; font-size:13px ">{{error}}</p>
+                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!signInAdmin"> Register</button>
+              </form>
+              </div>
+      			</div>
+      		</div>
+      	</div>
+      </section>
+      <br><hr>
+
+</div>

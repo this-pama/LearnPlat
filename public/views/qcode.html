@@ -1,0 +1,44 @@
+<div>
+    <header id="main-header" class="bg-primary text-white">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h1><i class="fa fa-user"></i>  LearnPlat Admin</h1>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
+              <button ng-show="adminReg" class="btn btn-success pt-5 mt-5 btn-lg" ng-click=adminRegister()>Register New Admin</button>
+              <button ng-show="adminLogin" class="btn btn-success pt-5 mt-5 btn-lg" ng-click="go('/adminuser')">Admin Login</button>
+              <button ng-show="outBtn" ng-click="go('/adminuser')" class="btn btn-success pt-5 mt-5 btn-lg">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+    <div class="container">
+        <!--container-->
+        <div class="col-md-2 col-lg-2"></div>
+        <div class="col-lg-8 col-md-8 text-center "><h2>{{title}}</h2><br>
+        <h4>{{info}}</h4>
+        <form name="createQcodeForm"  class="form-signin" ng-submit="checkSendData()">
+
+            <h2 class="form-signin-heading" style="color: #000000;">Create Question Category </h2>
+            <p>Please note down the Question name and code for future use</p>
+
+            <input type="text" class="input-block-level" placeholder="Question Username" ng-model="qcode.name" ng-minlength="4" required>
+            <br>
+            <input type="text" class="input-block-level" placeholder="Access Code" ng-model="qcode.code" ng-minlength="4"  required>
+            <br>
+            
+              <span style="color: red">{{error}}</span>
+
+
+            <button class="btn btn-large btn-success" type="submit" ng-disabled="!createQcodeForm.$valid">Create</button>
+
+        </form>
+        </div>
+
+    </div><!--container-->
+    <div class="col-md-2 col-lg-2"></div>
+    <br><hr>
+
+</div>
