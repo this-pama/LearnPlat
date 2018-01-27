@@ -1,13 +1,4 @@
-var mongoose = require('mongoose');
-
-var adminSchema = mongoose.Schema({
-	fullName : String,
-	email : String,
-	pass: String
-});
-
-var Admin = mongoose.model('Admins',adminSchema);
-
+var Admin = require('../model/admin')
 
 //REGISTER ADMIN
 exports.regAdmin = function(req,res){
@@ -81,3 +72,20 @@ exports.adminLogin = function(req,res){
 
     })
 };
+
+
+
+//ADMIN LIST
+exports.adminList = function(req,res){
+
+	Admin.find(function(err,data){
+	        if (err) {// ...
+	            console.log('An error has occurred');
+	            res.send('An error has occurred'+err);
+	        }
+	        else {
+	        	res.send(data)
+	        	console.log(data)
+	        }
+	    })
+}

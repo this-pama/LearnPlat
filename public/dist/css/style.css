@@ -1,16 +1,22 @@
+/*body {
+      padding-top: 90px;
+      font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+      background-color: #fff;
+      width: 100%;
+      height: 100%;
+}*/
+html,
 body {
-      padding-top: 60px;
-      padding-bottom: 60px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #fff;
+   margin:0;
+   padding:0;
+   height:100%;
 }
-
-a {
-  color: #00B7FF;
+ #adminhome {
+  color: #fff;
 }
 .form-signin {
     max-width: 300px;
-    padding: 19px 29px 29px;
+    padding: 40px 29px 29px;
     margin: 0 auto 20px;
     background-color: #fff;
     border: 1px solid #e5e5e5;
@@ -51,4 +57,47 @@ a {
 }*/
 #jumbotronId{
     padding-top: -10px !important;
+}
+
+.navbar .nav-link {
+  font-size: 14px;
+  text-transform: uppercase;
+  padding-left: 1em !important;
+  padding-right: 1em !important; }
+
+.navbar .nav-item.active {
+  border-left: #444 3px solid; }
+
+  #navbarNavTop {
+  box-shadow: 2px 2px 5px #3292a6;
+  opacity: 0.9;
+  background: #fff; }
+  #navbarNavTop .nav-item {
+    font-size: 1.4rem;
+    padding-right: 20px; }
+
+#main-footer {
+  background: #000;
+  color: #fff; 
+  position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
+}
+  #main-footer .fa {
+    font-size: 25px; }
+
+#body {
+   padding:10px;
+   padding-bottom:60px;   /* Height of the footer */
+}
+
+#container {
+   min-height:100%;
+   position:relative;
+}
+
+#header {
+   background:#ff0;
+   padding:10px;
 }

@@ -1,4 +1,4 @@
-myApp.controller('addqController',function($scope,$location,$http){
+myApp.controller('addqController',function($scope,$location,$http,$timeout,Upload,$window){
 var admin_id= sessionStorage.admin_id;
   if(!admin_id){
     $location.path('/')
@@ -25,12 +25,14 @@ var admin_id= sessionStorage.admin_id;
                          if(res.data.q_name){
                           // location.reload();
                           console.log(res.data);
+
+
                           $scope.success = "Question successfully added."
-                          setTimeout(
-                             function()
-                             {
-                                 location.reload();
-                             }, 0001);
+                          // setTimeout(
+                          //    function()
+                          //    {
+                          //        location.reload();
+                          //    }, 0001);
                          }else{
                           $scope.error = "Upload failed"
                          }
@@ -45,6 +47,33 @@ var admin_id= sessionStorage.admin_id;
                  console.log("Please Select the correct answer.")
              }
           }
+
+
+               $scope.uploadPic = function(file) {
+                  file.upload = Upload.upload({
+                    url: '/upload',
+                    data: {file: file},
+                  });
+                  
+
+                  file.upload.then(function (resp) {
+                    if(resp.data.error_code === 0){ //validate success
+                          $window.alert('Success ' + resp.config.data.file.name + ' uploaded. Response: ');
+                          /* returns a file which will be uploaded with the newName instead of original file name */
+                          // Upload.rename(file, $scope.q_name)
+                      } else {
+                          $window.alert('an error occured');
+                      }
+                  }, function (response) {
+                    if (response.status > 0)
+                      $scope.errorMsg = response.status + ': ' + response.data;
+                  }, function (evt) {
+                    console.log(evt)
+                    // Math.min is to fix IE which reports 200% sometimes
+                    file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                    console.log(file.progress)
+                  });
+                  }
         }else{
           $scope.error= "Question cannot be added"
           console.log("Question cannot be added")

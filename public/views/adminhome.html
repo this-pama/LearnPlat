@@ -1,0 +1,360 @@
+<div>
+    <header id="main-header" class="bg-primary text-white">
+        <div class="container">
+          <div class="row">
+              <h1> <a id="adminhome"  href="" ng-click=loadPage()><i class="fa fa-user"></i>  LearnPlat Admin</a></h1>
+              <button id="adminReg" class="btn btn-success ml-auto" ng-click="go('/adminsignout')">Sign Out</button>
+           </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="row">
+        <div class="col-md-3 col-sm-2">
+
+          <div class="card p-3" style="width: 18rem;">
+            <div class="card-header">
+              Admin
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><a href="" ng-click=getQuestionList()>List of Questions</a></li>
+              <li class="list-group-item"><a href="">List of Videos</a></li>
+              <li class="list-group-item"><a href="" ng-click=findAllUser()>Users</a></li>
+              <li class="list-group-item"><a href="" ng-click=findAllAdmin()>Admin</a></li>
+              <li class="list-group-item"><a href="" ng-click=showRegAdmin() >Register New Admin</a></li>
+              <li class="list-group-item"><a href="" ng-click=showAddQuestion()>Add Question</a></li>
+              <li class="list-group-item"><a href="" ng-click=showQtype()>Create Question Category</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-7 col-sm-10">
+        <div class="container"><br><br>
+        <!-- //search form -->
+          <form action="" class="form-control" ng-show="search" ng-submit=findUser()>
+          <div class="d-flex flex-row">
+          <div class="col-md-10">
+          <input type="text" class="form-control" ng-model='searchUser' placeholder="Search User by email or name"> 
+          </div>
+          <div class="col-md-2">
+          <button class="btn btn-primary d-flex"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
+          </div>
+          </div>
+        </form>  
+
+          <div class="card" >
+            <div class="card-header">
+              Welcome!
+            </div>
+            <div class="card-body">
+              <div ng-show="adminHeader">
+              <h5 class="card-title">Admin Dashboard</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed totam nisi dolore eaque consequuntur, porro non optio harum quo hic. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque nulla necessitatibus voluptatum veritatis, quia laboriosam, reprehenderit harum eos saepe similique, dolore voluptate porro quis voluptatem asperiores fugit temporibus nisi quae!</p>
+              <a href="" class="btn btn-primary">Go somewhere</a>
+              </div>
+              <!-- All users table -->
+              <div ng-show="allUser">
+                   <div class="container mb-3">
+                      <h1><i class="fa fa-users"> Users</i></h1>
+
+                      <table class="table">
+                        <thead class="thead-inverse">
+                          <tr>
+                              <th>S.NO</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Password</th>
+                              <!-- <th>_Id</th> -->
+                              <th>Delete</th>
+                              <th>Update</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                              <tr ng-repeat="g in allUser">
+                                  <td>{{$index+1}}</td>
+                                  <td>{{g.fullName}}</td>
+                                  <td>{{g.email}}</td>
+                                  <td>{{g.pass}}</td>
+                                  <!-- <td >{{g._id}}</td> -->
+                                  <td  ng-click=deleteUser()><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                  <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                              </tr>
+                          </tr>
+                          
+                        </tbody>
+                      </table>
+                  </div>
+              </div>
+                 <!--  Find a user -->
+                    <div ng-show="user">
+                   <div class="container mb-3">
+                      <h1><i class="fa fa-user"> User</i></h1>
+                      <p style="color: red">{{errorMessage}}</p>
+                      <table class="table">
+                        <thead class="thead-inverse">
+                          <tr>
+                              <th>S.NO</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Password</th>
+                              <th>Delete</th>
+                              <th>Update</th>
+                </tr>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                              <tr ng-repeat="g in searchResult">
+                                  <td>{{$index+1}}</td>
+                                  <td>{{g.fullName}}</td>
+                                  <td>{{g.email}}</td>
+                                  <td>{{g.pass}}</td>
+                                  <!-- <td>{{g._id}}</td> -->
+                                  <td ><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                  <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                              </tr>
+                          </tr>
+                          
+                        </tbody>
+                      </table>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Register New Admin -->
+          <div class="container" ng-show='register'>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card-hearder">
+                <h3>Register New Admin</h3><br>
+              </div>
+              <div class="card-block">
+              <p style="color: blue">{{success}}</p>
+                <form  name="signInAdmin" >
+                <div class="form-group">
+                  <label for="name" class="form-control-label">Full Name</label>
+                  <input type="text" class="form-control" ng-model="admin.name" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-control-label">Email</label>
+                  <input type="email" class="form-control" ng-model="admin.email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-control-label">Password</label>
+                  <input type="password" class="form-control" ng-model="admin.pass" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-control-label">Confirm Password</label>
+                  <input type="password" class="form-control" ng-model="admin.re_pass" ng-minlength="5" required>  
+                </div>
+                <p style="color: red; font-size:13px ">{{error}}</p>
+                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!signInAdmin" ng-click=registerAdmin()> Register</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Question Code session -->
+          <div class="container" ng-show='qType'>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card-hearder">
+               <h3>Question Username & Access Code</h3>
+              </div>
+              <div class="card-block">
+                <form  name="createQcodeForm" ng-submit="createQtype()">
+                <p >Please note down the Question name and code for future use</p>
+                <div class="form-group">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Title" ng-model="qcode.title" ng-minlength="4" required> 
+                </div>
+                  <textarea type="text" class="form-control" placeholder="Question Instruction (Optional)" ng-model="qcode.instruction" ng-minlength="4"></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Question Name" ng-model="qcode.name" ng-minlength="4" required> 
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Question Name" ng-model="qcode.code" ng-minlength="4" required> 
+                </div>
+                <p style="color: red; font-size:13px ">{{error}}</p>
+                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!createQcodeForm.$valid"> Create</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    <!-- Add Question session -->
+    <div class="container" ng-show="addquestion">
+        <!--container-->
+        <div class=""><h2>{{title}}</h2><br><hr>
+        <h3 class="text-center">{{info}}</h3>
+        <form name="addQuestForm" ng-submit="addQuestion()">
+
+            <h2  style="color: #000000;">Add Question</h2>
+            <p style="color: blue">check the correct answer</p>         
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-control-label">Question</label><br>
+                <textarea type="text" class="form-control" cols="30" rows="10" name="editor1" class="input-block-level" placeholder="Question" ng-model="question.q"  required></textarea>
+                <script>
+                  CKEDITOR.replace('editor1');
+                  </script>
+            </div>
+            <div class="form-group bg-faded p-3">
+                <label for="file" class="form-control-label">Image Upload (Optional)</label>
+                <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="1MB" ngf-model-invalid="errorFile" >
+                  <i ng-show="addQuestForm.file.$error.required"></i><br>
+                  <i ng-show="addQuestForm.file.$error.maxSize">File too large 
+                      {{errorFile.size / 1000000|number:1}}MB: max 1M</i>
+                  <img ng-show="addQuestForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+                  <br>
+                  <!-- <button ng-disabled="!myForm.$valid" 
+                          ng-click="uploadPic(picFile)">Submit</button> -->
+                  <span class="progress" ng-show="picFile.progress >= 0">
+                    <div style="width:{{picFile.progress}}%" 
+                        ng-bind="picFile.progress + '%'"></div>
+                  </span>
+                  <span ng-show="picFile.result">Upload Successful</span>
+                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-control-label">Question Name</label><br>
+                <input type="text" class="input-block-level" placeholder="Question name" ng-model="question.q_name" ng-minlength="4" required>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-control-label">Answer 1</label><br>
+                <input type="radio" ng-model="question.r_a" value="a1">
+                <input type="text" class="form-control input-block-level" placeholder="Answer 1" ng-model="question.a1"  required>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-control-label">Answer 2</label><br>
+                <input type="radio"  ng-model="question.r_a" value="a2">
+                <input type="text" class="form-control input-block-level" placeholder="Answer 2" ng-model="question.a2"   required>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-control-label">Answer 3</label><br>
+                <input type="radio" ng-model="question.r_a" value="a3">
+                <input type="text" class="form-control input-block-level" placeholder="Answer 3" ng-model="question.a3"   required>
+            </div>
+
+            <div class="form-group bg-faded p-3">
+                <label for="Question" class="form-control-label">Answer 4</label><br>
+                <input type="radio" ng-model="question.r_a" value="a4">
+                <input type="text" class="form-control input-block-level" placeholder="Answer 4" ng-model="question.a4"  required>
+            </div>
+          <span style="color: red">{{addQerror}}</span>
+          <span style="color: red">{{addQsuccess}}</span><br>
+
+
+            <button class="btn btn-large btn-success" type="submit" ng-click="uploadPic(picFile)" ng-model="submit" ng-disabled="!addQuestForm.$valid">Add Question</button>
+
+        </form>
+        </div>
+
+    </div><!--add question session-->
+
+
+           <!--  Find Question List -->
+          <div ng-show="qList">
+         <div class="container mb-3">
+            <h1><i class="fa fa-book"> Question List</i></h1>
+
+            <table class="table">
+              <thead class="thead-inverse">
+                <tr>
+                    <th>S.NO</th>
+                    <th>Title</th>
+                    <th>Username</th>
+                    <th>Access Code</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <tr ng-repeat="g in questionList">
+                        <td>{{$index+1}}</td>
+                        <td>{{g.title}}</td>
+                        <td>{{g.q_name}}</td>
+                        <td>{{g.q_code}}</td>
+                        <td ><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                        <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                    </tr>
+                </tr>
+                
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+        <!-- All Admin table -->
+    <div ng-show="allAdmin">
+         <div class="container mb-3">
+            <h1><i class="fa fa-users"> Admin</i></h1>
+
+            <table class="table">
+              <thead class="thead-inverse">
+                <tr>
+                    <th>S.NO</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>_Id</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <tr ng-repeat="g in allAdmin">
+                        <td>{{$index+1}}</td>
+                        <td>{{g.fullName}}</td>
+                        <td>{{g.email}}</td>
+                        <td>{{g.pass}}</td>
+                        <td>{{g._id}}</td>
+                        <td ><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                        <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                    </tr>
+                </tr>
+                
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+
+  </div> <!-- end of container -->
+  </div> <!-- <-end of col-md-7 -->
+
+
+        <div class="col-md-2"><br><br>
+        <!-- set the number of user -->
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa fa-users"> Users</i></h3>
+            </div>
+            <div class="card-body">
+              <h5 class=" text-center card-title">No. of Users</h5>
+              <p class=" lead text-center card-text">{{noOfUser}}</p>
+            </div>
+          </div><br><br>
+              <!-- set the number of admin -->
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa fa-users"> Admin</i></h3>
+            </div>
+            <div class="card-body">
+              <h5 class=" text-center card-title">No. of Admin</h5>
+              <p class=" lead text-center card-text">{{noOfAdmin}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

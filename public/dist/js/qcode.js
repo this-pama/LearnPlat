@@ -5,7 +5,7 @@ myApp.controller('qcodeController',function($scope,$location,$http){
   }else{
     var qtype = sessionStorage.qtype;
     console.log(qtype+" "+ admin_id)
-      $scope.qcode = {name:null,code:null}
+      $scope.qcode = {instruction:null, name:null,code:null}
       $scope.adminLogin = false;
        $scope.adminReg = false;
        $scope.outBtn = true;
@@ -14,11 +14,12 @@ myApp.controller('qcodeController',function($scope,$location,$http){
         if($scope.qcode.name != null || $scope.qcode.code != nul){
           var qcode = $scope.qcode.code;
           var qname = $scope.qcode.name;
+          var instruction = $scope.qcode.instruction;
 
           $scope.error=""
           $http({
             url: "/addqname",
-            data: {q_name: qname, q_code: qcode},
+            data: {instruction:instruction, q_name: qname, q_code: qcode},
             method: "POST"
           }).then(function(res){
             if(res.data.q_name){
@@ -46,7 +47,7 @@ myApp.controller('qcodeController',function($scope,$location,$http){
         }
 
       $scope.title = "Welcome Admin!!! "
-      $scope.info = " Please create Question category with Username and Access code to proceed with adding questions to the database.";
+      $scope.info = " Create Question category with Username and Access code to proceed with adding questions to the database.";
   }
 
 })

@@ -1,10 +1,25 @@
-var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute'])
+var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
 	.config(function($routeProvider){
 
 		$routeProvider
 			.when('/',{
 				templateUrl: 'views/main.html',
-				// controller: 'mainController'
+				controller: 'mainController'
+			})
+
+			.when('/support',{
+				templateUrl: 'views/support.html',
+				controller: 'supportController'
+			})
+
+			.when('/load',{
+				templateUrl: 'views/load.html',
+				controller: 'loadController'
+			})
+
+			.when('/result',{
+				templateUrl: 'views/result.html',
+				controller: 'resultController'
 			})
 
 			.when('/signin',{
@@ -32,14 +47,19 @@ var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute'])
 				controller: 'addqController'
 			})
 
-			// .when('/test',{
-			// 	templateUrl: 'views/test.html',
-			// 	controller: 'testController'
-			// })
+			.when('/test',{
+				templateUrl: 'views/test.html',
+				controller: 'testController'
+			})
 
 			.when('/adminuser',{
 				templateUrl: 'views/adminlogin.html',
 				controller: 'adminLogin'
+			})
+
+			.when('/adminhome',{
+				templateUrl: 'views/adminhome.html',
+				controller: 'adminhomeController'
 			})
 
 			.when('/adminregister',{

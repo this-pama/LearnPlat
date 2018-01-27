@@ -2,84 +2,117 @@
 <html ng-app="myApp">
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/dist/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='/dist/css/style.css' /><!-- 
-    <link rel='stylesheet' href='/dist/css/font-awesome.min.css' /> -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+    <link rel='stylesheet' href='/dist/css/bootstrap.css' />
+    <link rel='stylesheet' href='/dist/css/style.css' />
+    <link rel='stylesheet' href='/dist/css/font-awesome.min.css' />
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-  </head> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+  </head>
   <body>
 
-
-
-                  <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="navController">
-                      <div class="container">
-                          <div class="navbar-header">
-                              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                  <span class="icon-bar"></span>
-                                  <span class="icon-bar"></span>
-                                  <span class="icon-bar"></span>
-                              </button>
-                              <a class="navbar-brand" href="#">LearnPlat</a>
-                          </div>
-                          <div class="navbar-collapse collapse">
-                              <ul class="nav navbar-nav">
-                                  <li class="active"><a ng-click="go('/')">Home</a></li>
-                                  <li class="dropdown">
-                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
-                                      <ul class="dropdown-menu">
-                                          <li><a ng-click="go('/learn_pg')">Learn</a></li>
-                                          <li><a ng-click="go('/takeQuiz_pg')">Take Quiz</a></li>
-                                          <li><a ng-click="go('/shareWith_pg')">Share with Other</a></li>
-                                      </ul>
-                                  </li>
-                                  <li><a href="#contact">Support</a></li>
-                              </ul>
-                              <div class="navbar-form navbar-right">
-                                <a ng-click="go('/signin')"> <span style="color: #ffffff; font-size: 18px">{{message}}</span></a>
-                              <button ng-show="inBtn" ng-click="go('/signin')" class="btn btn-success">Sign in</button>
-                              <button ng-show="outBtn" ng-click="go('/signout')" class="btn btn-warning">Sign out</button>
-                              <button ng-show="regBtn" ng-click="go('/register')" class="btn btn-warning">Register</button>
-                              </div>
-                              </div><!--/.navbar-collapse -->
-                      </div>
-                  </div>
-
-
- <div ng-view></div>
-
-<div id="footer" class="bg-inverse text-white ">
-
+<div id="container">
+  <nav id="hearder" class="navbar navbar-toggleable-sm navbar-inverse bg-inverse" ng-controller="navController">
     <div class="container">
-      <div class="row">
-        <div class="col">
-          <p class="lead text-center">LearnPlat Copyright &copy; 2017. Designed by Dapo Aderemi</p>
-        </div>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <a href="" ng-click="go('/')" class="navbar-brand">LearnPlat</a>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="" ng-click="go('/')" class="nav-link active">Home </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link" ng-click="go('/')">Live Tutorial </a>
+          </li>
+          <li class="nav-item dropdown">
+  <a class="dropdown-toggle nav-link" href=""  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Services
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="" ng-click="go('/')">Learn</a>
+    <a class="dropdown-item" href="" ng-click="go('/test')">Take Test</a>
+
+  </div>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link" ng-click="go('/result')">Results </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link " ng-click="go('/support')">Support </a>
+          </li>
+        </ul>
+        <div class="navbar-nav ml-auto">
+             <a ng-click="go('/signin')"> <span style="color: #ffffff; font-size: 18px">{{message}}</span></a>
+            <div><button ng-show="inBtn" ng-click="go('/signin')" class="btn btn-success">Sign in</button></div>
+            <div><button ng-show="outBtn" ng-click="go('/signout')" class="btn btn-warning">Sign out</button></div>
+            <button ng-show="regBtn" ng-click="go('/register')" class="btn btn-warning">Register</button>
+          </div>
       </div>
     </div>
+  </nav>
 
+
+         <div id="body" ng-view></div>
+
+       <!--  <div id="footer" class="bg-inverse text-white ">
+
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <p class="lead text-center">LearnPlat Copyright &copy; 2018. Designed by Dapo Aderemi</p>
+                </div>
+              </div>
+            </div>
+
+        </div> -->
+
+
+
+    <!-- </div> -->
+      <footer id="main-footer" class=" text-center">
+      <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4"><p class="lead ">LearnPlat Copyright &copy; 2018. Designed by Dapo Aderemi</p></div>
+          <div class="col-md-4"></div>
+          
+      </div>
+    </footer>
+       
 </div>
-
   </body>
+    <script src="/dist/js/jquery.min.js"></script>
+  <script src="/dist/js/navbar-fixed.js"></script>
+    <script src="/dist/js/tether.min.js"></script>
   <script src="/dist/js/bootstrap.min.js"></script>
   <script src="/dist/js/angular.min.js"></script>
   <script src="/dist/js/main.js"></script>
+  <script src="/dist/js/maincontroller.js"></script>
   <script src="/dist/js/service.js"></script>
   <script src="/dist/js/signin.js"></script>
   <script src="/dist/js/signout.js"></script>
   <script src="/dist/js/register.js"></script>
   <script src="/dist/js/qcode.js"></script>
-  <script src="/dist/js/test.js"></script>  
+  <script src="/dist/js/test.js"></script> 
+  <script src="/dist/js/load.js"></script>
+  <script src="/dist/js/support.js"></script>  
+    <script src="/dist/js/result.js"></script>  
    <script src="/dist/js/error.js"></script>
    <script src="/dist/js/admin.js"></script>
+   <script src="/dist/js/adminhome.js"></script>
    <script src="/dist/js/adminsignout.js"></script>
     <script src="/dist/js/adminregister.js"></script>
    <script src="/dist/js/addquestion.js"></script>
   <script src="/dist/js/angular-route.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+
+  <script src="/dist/js/ng-file-upload-shim.js"></script> <!-- for no html5 browsers support -->
+  <script src="/dist/js/ng-file-upload.min.js"></script>
   <!--   <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
   <script>
   CKEDITOR.replace('editor1');

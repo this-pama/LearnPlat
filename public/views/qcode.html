@@ -3,7 +3,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <h1><i class="fa fa-user"></i>  LearnPlat Admin</h1>
+              <h1> <a id="adminhome" href="go('/adminhome')"><i class="fa fa-user"></i>  LearnPlat Admin</a></h1>
             </div>
             <div class="col-md-4"></div>
             <div class="col-md-2">
@@ -14,16 +14,17 @@
           </div>
         </div>
       </header>
-    <div class="container">
-        <!--container-->
-        <div class="col-md-2 col-lg-2"></div>
-        <div class="col-lg-8 col-md-8 text-center "><h2>{{title}}</h2><br>
+    <!-- <div class="container">
+ -->        <!--container-->
+        <!-- <div class="col-md-2 col-lg-2"></div>
+        <div class="col-lg-8 col-md-8 text-center "><h2>{{title}}</h2><br><hr>
         <h4>{{info}}</h4>
         <form name="createQcodeForm"  class="form-signin" ng-submit="checkSendData()">
 
             <h2 class="form-signin-heading" style="color: #000000;">Create Question Category </h2>
             <p>Please note down the Question name and code for future use</p>
-
+            <input type="text" class="input-block-level" placeholder="Question Username" ng-model="qcode.name" ng-minlength="4" required>
+            <br>
             <input type="text" class="input-block-level" placeholder="Question Username" ng-model="qcode.name" ng-minlength="4" required>
             <br>
             <input type="text" class="input-block-level" placeholder="Access Code" ng-model="qcode.code" ng-minlength="4"  required>
@@ -37,8 +38,45 @@
         </form>
         </div>
 
-    </div><!--container-->
-    <div class="col-md-2 col-lg-2"></div>
-    <br><hr>
+    </div> --><!--container-->
+    <!-- <div class="col-md-2 col-lg-2"></div>
+    <br><hr> -->
+
+ <!--Question Type -->
+      <div class="col-md-3"></div>
+      <section id="login">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card-hearder">
+              <!-- <h2>{{title}}</h2><br><hr> -->
+               <h3>{{info}}</h3>
+               <!--  <h4>Create Question Category</h4>
+ -->                <p class="lead">Please note down the Question name and code for future use</p>
+              </div>
+              <div class="card-block">
+                <form  name="createQcodeForm" ng-submit="checkSendData()">
+                <div class="form-group">
+                  <label for="name" class="form-control-label">Question Type Instruction</label>
+                  <textarea type="text" class="form-control" placeholder="Question Instruction (Optional)" ng-model="qcode.instruction" ng-minlength="4"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-control-label">Question Name</label>
+                  <input type="text" class="form-control" placeholder="Question Name" ng-model="qcode.name" ng-minlength="4" required> 
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-control-label">Question Code</label>
+                  <input type="text" class="form-control" placeholder="Question Name" ng-model="qcode.code" ng-minlength="4" required> 
+                </div>
+                <p style="color: red; font-size:13px ">{{error}}</p>
+                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!createQcodeForm.$valid"> Create</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <br><hr>
+
 
 </div>

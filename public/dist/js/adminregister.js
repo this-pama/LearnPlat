@@ -5,6 +5,7 @@ myApp.controller('adminRegister',function($http,$location,$scope){
        $scope.adminReg = false;
         $scope.checkSendData = function(){
             // console.log(email +" 2 "+ pass)
+                    
                     var email = $scope.admin.email;
                     var pass= $scope.admin.pass;
                     var name= $scope.admin.name;

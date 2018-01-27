@@ -28,7 +28,7 @@ myApp.controller('adminLogin',function($http,$location,$scope){
                         sessionStorage.setItem('admin_id',admin_id);
 
                         // window.location = '/'
-                        $location.path("/qcode")
+                        $location.path("/adminhome")
 
                         }else{
                             $scope.error= "Your Email or Password is wrong"

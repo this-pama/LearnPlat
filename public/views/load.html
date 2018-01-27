@@ -1,0 +1,54 @@
+<div>
+   <div ng-show="user_in">
+           <div class="container"> 
+           <h2>{{message}}</h2>
+           <div ng-show="info_box" > 
+           {{instruction}} <br>
+          <!-- <p>This Quiz contain 20 Question based on MCQ's.You will given 30 min for this quiz, Once you have answered a question you will not be allowed to change
+          <br> its answer after moving to next question by clicking next button.</p> -->
+
+           <br>
+           <button id="quiz_btn" class="btn btn-primary" ng-click="startQuiz()"> Start Quiz</button>
+           </div>
+           <div ng-show="quiz_box">
+               <div > 
+                   <p>Q:{{current_q.question}} ?</p>
+                   <ul style="list-style: none;">
+                       <li><input type="radio" ng-model="u_ans" value="a1"  name="u_a" style="padding-right: 30px" /> {{current_q.a_1}}</li>
+                       <li><input type="radio" ng-model="u_ans" value="a2" name="u_a" /> {{current_q.a_2}}</li>
+                       <li><input type="radio" ng-model="u_ans" value="a3" name="u_a" /> {{current_q.a_3}}</li>
+                       <li><input type="radio" ng-model="u_ans" value="a4" name="u_a" /> {{current_q.a_4}}</li>
+                   </ul>
+               </div>
+               <p style="color: red">{{err_message}}</p>
+               <button ng-show="prev_btn" class="btn btn-warning" ng-click="change_q('prev')">Previous</button>
+               <button ng-show="next_btn" class="btn btn-success" ng-click="change_q('next')" >Next</button>
+               <button ng-show="result_btn" class="btn btn-primary" ng-click="generate_result()" > End</button>
+           </div>
+       <div ng-show="result_box">
+           
+           <h3>Your Result </h3>
+           <br>
+           <div class="col-lg-6" >
+
+               <progress percent="dynamicObject" class="progress-striped active"></progress>
+           <p>You Scored: {{rite_percentage}}%</p>
+              <button ng-click="saveResult()" class="btn btn-primary">Save Result</button> <button class="btn btn-danger" ng-click="go('/test')">Retake/Exit</button><br>
+               <p>You can see all your results at the Result page </p>
+           </div>
+
+       </div>
+
+     </div>
+    </div>
+
+
+
+    <div ng-show="user_out">
+        <div class="row">
+        <div class="col-md-4 col-md-offset-3" ng-show="user_out"><h3>You Should Sign In to Take Quiz.</h3></div>
+    </div>
+    </div>
+
+
+</div>

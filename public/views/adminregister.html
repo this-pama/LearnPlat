@@ -1,17 +1,12 @@
     <div>
     <header id="main-header" class="bg-primary text-white">
-        <div class="container">
+          <div class="container">
           <div class="row">
-            <div class="col-md-6">
-              <h1><i class="fa fa-user"></i>  LearnPlat Admin</h1>
-            </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-2">
-              <button ng-show="adminReg" class="btn btn-success pt-5 mt-5 btn-lg" ng-click=adminRegister()>Register New Admin</button>
-              <button ng-show="adminLogin" class="btn btn-success pt-5 mt-5 btn-lg" ng-click="go('/adminuser')">Admin Login</button>
-            </div>
+              <h1> <a id="adminhome" href="go('/adminhome')"><i class="fa fa-user"></i>  LearnPlat Admin</a></h1>
+               <button ng-show="adminReg" class="btn btn-success ml-auto" ng-click=adminRegister()>Register New Admin</button>
+              <button ng-show="adminLogin" class="btn btn-success ml-auto" ng-click="go('/adminuser')">Admin Login</button>
+           </div>
           </div>
-        </div>
       </header>
 
       <!--ACTIONS-->

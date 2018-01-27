@@ -1,0 +1,28 @@
+<div>
+    <div class="container">
+        <h1>{{message}}</h1>
+
+        <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+                <th>S.NO</th>
+                <th>Quiz Name</th>
+                <th>Marks</th>
+                <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <tr ng-repeat="g in resultData">
+                    <td>{{$index+1}}</td>
+                    <td>{{g.q_name}}</td>
+                    <td>{{g.userResult}}</td>
+                    <td>{{g.date}}</td>
+                </tr>
+            </tr>
+            
+          </tbody>
+        </table>
+    </div>
+    <br><br>    <br>
+</div>
