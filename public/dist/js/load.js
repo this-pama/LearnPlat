@@ -93,7 +93,7 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
                  check_status();
 
 
-                 }//Solving the  uder request for next/prev questions
+                 }//Solving the  user request for next/prev questions
                  var check_status = function(){
                  if(ans_given == true){
                  if(next == 0){
@@ -177,6 +177,7 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
 
                 $scope.saveResult = function(){
                                 console.log("Save Result");
+                                $scope.generate_result()
                     $http({
                         url:"/saveResult",
                         data:{u_id:id,riteans_perc : riteans_perc,q_name:q_name},
@@ -188,6 +189,7 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
                          alert("Error");
                         }
                     )
+
                 }//saveResult()
 
                  var ans_forward = function(id,ans){

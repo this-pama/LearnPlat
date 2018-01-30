@@ -1,12 +1,12 @@
 <div>
-    <header id="main-header" class="bg-primary text-white">
+    
+      <header id="main-header" class="bg-primary text-white">
         <div class="container">
           <div class="row">
               <h1> <a id="adminhome"  href="" ng-click=loadPage()><i class="fa fa-user"></i>  LearnPlat Admin</a></h1>
               <button id="adminReg" class="btn btn-success ml-auto" ng-click="go('/adminsignout')">Sign Out</button>
            </div>
           </div>
-        </div>
       </header>
 
       <div class="row">
@@ -22,8 +22,8 @@
               <li class="list-group-item"><a href="" ng-click=findAllUser()>Users</a></li>
               <li class="list-group-item"><a href="" ng-click=findAllAdmin()>Admin</a></li>
               <li class="list-group-item"><a href="" ng-click=showRegAdmin() >Register New Admin</a></li>
-              <li class="list-group-item"><a href="" ng-click=showAddQuestion()>Add Question</a></li>
               <li class="list-group-item"><a href="" ng-click=showQtype()>Create Question Category</a></li>
+              <li class="list-group-item"><a href="" ng-click=showAddQuestion()>Add Question</a></li>
             </ul>
           </div>
         </div>
@@ -33,13 +33,25 @@
           <form action="" class="form-control" ng-show="search" ng-submit=findUser()>
           <div class="d-flex flex-row">
           <div class="col-md-10">
-          <input type="text" class="form-control" ng-model='searchUser' placeholder="Search User by email or name"> 
+          <input type="text" class="form-control" ng-model='searchUser' placeholder="Search User by Email"> 
           </div>
           <div class="col-md-2">
           <button class="btn btn-primary d-flex"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
           </div>
           </div>
         </form>  
+
+        <!-- //Admin search form -->
+          <form action="" class="form-control" ng-show="adminSearch" ng-submit=findAdmin()>
+          <div class="d-flex flex-row">
+          <div class="col-md-10">
+          <input type="text" class="form-control" ng-model='searchAdmin' placeholder="Search Admin by Email"> 
+          </div>
+          <div class="col-md-2">
+          <button class="btn btn-primary d-flex"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
+          </div>
+          </div>
+        </form> 
 
           <div class="card" >
             <div class="card-header">
@@ -51,6 +63,8 @@
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed totam nisi dolore eaque consequuntur, porro non optio harum quo hic. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque nulla necessitatibus voluptatum veritatis, quia laboriosam, reprehenderit harum eos saepe similique, dolore voluptate porro quis voluptatem asperiores fugit temporibus nisi quae!</p>
               <a href="" class="btn btn-primary">Go somewhere</a>
               </div>
+            </div>
+          </div>
               <!-- All users table -->
               <div ng-show="allUser">
                    <div class="container mb-3">
@@ -70,23 +84,22 @@
                         </thead>
                         <tbody>
                           <tr>
-                              <tr ng-repeat="g in allUser">
+                              <tr ng-repeat="g in allUser track by $index">
                                   <td>{{$index+1}}</td>
                                   <td>{{g.fullName}}</td>
                                   <td>{{g.email}}</td>
                                   <td>{{g.pass}}</td>
                                   <!-- <td >{{g._id}}</td> -->
-                                  <td  ng-click=deleteUser()><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                                  <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                                  <td data-toggle="modal" data-target="#exampleModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                  <td data-toggle="modal" data-target="#updateUserModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                               </tr>
                           </tr>
-                          
                         </tbody>
                       </table>
                   </div>
-              </div>
+                </div>
                  <!--  Find a user -->
-                    <div ng-show="user">
+                  <div ng-show="user">
                    <div class="container mb-3">
                       <h1><i class="fa fa-user"> User</i></h1>
                       <p style="color: red">{{errorMessage}}</p>
@@ -99,7 +112,6 @@
                               <th>Password</th>
                               <th>Delete</th>
                               <th>Update</th>
-                </tr>
                           </tr>
                         </thead>
                         <tbody>
@@ -110,8 +122,8 @@
                                   <td>{{g.email}}</td>
                                   <td>{{g.pass}}</td>
                                   <!-- <td>{{g._id}}</td> -->
-                                  <td ><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                                  <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                                  <td data-toggle="modal" data-target="#exampleModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                  <td data-toggle="modal" data-target="#updateUserModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                               </tr>
                           </tr>
                           
@@ -119,8 +131,6 @@
                       </table>
                   </div>
               </div>
-            </div>
-          </div>
 
           <!-- Register New Admin -->
           <div class="container" ng-show='register'>
@@ -132,24 +142,32 @@
               <div class="card-block">
               <p style="color: blue">{{success}}</p>
                 <form  name="signInAdmin" >
-                <div class="form-group">
+                <div class="form-group" ng-submit="registerAdmin()">
                   <label for="name" class="form-control-label">Full Name</label>
-                  <input type="text" class="form-control" ng-model="admin.name" ng-minlength="5" required>  
+                  <input type="text" class="form-control" ng-model="fullName" ng-minlength="5" required>  
                 </div>
                 <div class="form-group">
                   <label for="email" class="form-control-label">Email</label>
-                  <input type="email" class="form-control" ng-model="admin.email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+                  <input type="email" class="form-control" ng-model="email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+                </div>
+                <div class="form-group">
+                  <label for="address" class="form-control-label">Address</label>
+                  <input type="text" class="form-control" ng-model="address" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-control-label">Phone Number</label>
+                  <input type="number" class="form-control" ng-model="phoneNumber" ng-minlength="5" required>  
                 </div>
                 <div class="form-group">
                   <label for="password" class="form-control-label">Password</label>
-                  <input type="password" class="form-control" ng-model="admin.pass" ng-minlength="5" required>  
+                  <input type="password" class="form-control" ng-model="pass" ng-minlength="5" required>  
                 </div>
                 <div class="form-group">
                   <label for="password" class="form-control-label">Confirm Password</label>
-                  <input type="password" class="form-control" ng-model="admin.re_pass" ng-minlength="5" required>  
+                  <input type="password" class="form-control" ng-model="re_pass" ng-minlength="5" required>  
                 </div>
                 <p style="color: red; font-size:13px ">{{error}}</p>
-                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!signInAdmin" ng-click=registerAdmin()> Register</button>
+                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!signInAdmin.$valid" ng-click=registerAdmin()> Register</button>
               </form>
               </div>
             </div>
@@ -199,9 +217,9 @@
             <div class="form-group bg-faded p-3">
                 <label for="Question" class="form-control-label">Question</label><br>
                 <textarea type="text" class="form-control" cols="30" rows="10" name="editor1" class="input-block-level" placeholder="Question" ng-model="question.q"  required></textarea>
-                <script>
+                <!-- <script>
                   CKEDITOR.replace('editor1');
-                  </script>
+                  </script> -->
             </div>
             <div class="form-group bg-faded p-3">
                 <label for="file" class="form-control-label">Image Upload (Optional)</label>
@@ -284,7 +302,7 @@
                         <td>{{g.title}}</td>
                         <td>{{g.q_name}}</td>
                         <td>{{g.q_code}}</td>
-                        <td ><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                        <td data-toggle="modal" data-target="#qtypeModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                         <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                     </tr>
                 </tr>
@@ -319,8 +337,8 @@
                         <td>{{g.email}}</td>
                         <td>{{g.pass}}</td>
                         <td>{{g._id}}</td>
-                        <td ><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                        <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                        <td data-toggle="modal" data-target="#adminModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                        <td data-toggle="modal" data-target="#updateAdminModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                     </tr>
                 </tr>
                 
@@ -329,6 +347,45 @@
         </div>
     </div>
 
+
+
+      <!--  Find Admin -->
+      <div ng-show="admin">
+       <div class="container mb-3">
+          <h1><i class="fa fa-user"> Admin</i></h1>
+          <p style="color: red">{{errorMessage}}</p>
+          <table class="table">
+            <thead class="thead-inverse">
+              <tr>
+                  <th>S.NO</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Password</th>
+                  <th>Delete</th>
+                  <th>Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <tr ng-repeat="g in searchResultAdmin">
+                      <td>{{$index+1}}</td>
+                      <td>{{g.fullName}}</td>
+                      <td>{{g.email}}</td>
+                      <td>{{g.pass}}</td>
+                      <!-- <td>{{g._id}}</td> -->
+                      <td data-toggle="modal" data-target="#adminModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                      <td data-toggle="modal" data-target="#updateAdminModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                  </tr>
+              </tr>
+              
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+
+
+   
 
   </div> <!-- end of container -->
   </div> <!-- <-end of col-md-7 -->
@@ -358,3 +415,201 @@
         </div>
       </div>
 </div>
+
+
+
+
+<!--Update Admin Modal -->
+<div class="modal fade" id="updateAdminModal" tabindex="-1" role="dialog" aria-labelledby="updateAdminModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateAdminModalLabel">Update User Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p>Note: You can't Update Email. Email must be the same.</p>
+        <div class="card-block">
+          <form  name="updateAdminForm" >
+          <div class="form-group">
+            <label for="name" class="form-control-label">Full Name</label>
+            <input type="text" class="form-control" ng-model="fullName" ng-minlength="5" required>  
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-control-label">Email</label>
+            <input type="email" class="form-control" ng-model="email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-control-label">Password</label>
+            <input type="password" class="form-control" ng-model="pass" ng-minlength="5" required>  
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-control-label">Confirm Password</label>
+            <input type="password" class="form-control" ng-model="re_pass" ng-minlength="5" required>  
+          </div>
+          <div class="form-group">
+            <label for="name" class="form-control-label">Phone Number</label>
+            <input type="number" class="form-control" ng-model="phoneNumber" ng-minlength="5" required>  
+          </div>
+          <div class="form-group">
+            <label for="name" class="form-control-label">Address</label>
+            <input type="text" class="form-control" ng-model="address"  required>  
+          </div>
+          <p style="color: red; font-size:13px ">{{updateAdminError}}</p>
+          <p style="color: red; font-size:13px ">{{updateAdminSuccess}}</p>
+          <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!updateAdminForm.$valid" ng-click=updateAdmin()> Update</button>
+         <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-disabled="!updateAdminForm" ng-click=updateAdmin()>Update</button>
+      </div>
+ -->   </form>
+        </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!--Update User Modal -->
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateUserModalLabel">Update User Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-block">
+          <form  name="updateUserForm" ng-submit=updateUser() >
+          <div class="form-group">
+          <p>Note: You can't Update Email. Email must be the same.</p>
+            <label for="name" class="form-control-label">Full Name</label>
+            <input type="text" class="form-control" ng-model="fullName" ng-minlength="5" required>  
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-control-label">Email</label>
+            <input type="email" class="form-control" ng-model="email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-control-label">Password</label>
+            <input type="password" class="form-control" ng-model="pass" ng-minlength="5" required>  
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-control-label">Confirm Password</label>
+            <input type="password" class="form-control" ng-model="re_pass" ng-minlength="5" required>  
+          </div>
+          <div class="form-group">
+            <label for="name" class="form-control-label">Phone Number</label>
+            <input type="number" class="form-control" ng-model="phoneNumber" ng-minlength="5" required>  
+          </div>
+          <div class="form-group">
+            <label for="name" class="form-control-label">Address</label>
+            <input type="text" class="form-control" ng-model="address" ng-minlength="5" required>  
+          </div>
+          <p style="color: red; font-size:13px ">{{updateUserError}}</p>
+          <p style="color: red; font-size:13px ">{{updateUserSuccess}}</p>
+          <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!updateUserForm.$valid" ng-click=updateUser()> Update</button>
+        </form>
+        </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click=updateUser()>Update</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+</div>
+
+
+ <!--Delete User Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <p class="lead">Please confirm user delete by typing the user email to proceed</p>
+            <form action="" ng-submit=deleteUser() name="deleteUserForm">
+              <div class="form-group">
+                <label for="email" class="form-control-label">Email</label>
+                <input type="email" class="form-control" ng-model="deleteUserEmail" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+              </div>
+            </form>
+            <p style="color: red">{{deleteUserError}}</p>
+            <p style="color: red">{{deleteUserSuccess}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+            <button type="button" class="btn btn-primary" ng-click=deleteUser() ng-disable="!deleteUserForm.$valid">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!--Delete Admin Modal -->
+      <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="adminModalLabel">Delete Admin</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <p class="lead">Please confirm delete by typing the admin's email to proceed</p>
+              <form action="" ng-submit=deleteAdmin()>
+                <div class="form-group" name="deleteAdminForm">
+                  <label for="email" class="form-control-label">Email</label>
+                  <input type="email" class="form-control" ng-model="deleteAdminEmail" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+                </div>
+              </form>
+              <p style="color: red">{{deleteError}}</p>
+              <p style="color: red">{{deleteSuccess}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" ng-click=deleteAdmin() ng-disable="!deleteAdminForm.$valid">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--Delete Question Type Modal -->
+      <div class="modal fade" id="qtypeModal" tabindex="-1" role="dialog" aria-labelledby="qtypeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="qtypeModalLabel">Delete Question Type</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <p class="lead">Please confirm delete by typing the Question Type Username to proceed</p>
+              <form action="" ng-submit=deleteQtype() name="deleteQtypeForm">
+                <div class="form-group">
+                  <label for="email" class="form-control-label">Question Username</label>
+                  <input type="text" class="form-control" ng-model="deleteQname"  required> 
+                </div>
+              </form>
+              <p style="color: red">{{deleteQtypeError}}</p>
+              <p style="color: red">{{deleteQtypeSuccess}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" ng-click=deleteQtype() ng-disable="!deleteQtypeForm.$valid">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>

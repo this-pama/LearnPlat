@@ -1,9 +1,13 @@
 <div class="container">
     <form name="addUserForm"  class="form-signin" ng-submit="register.checkSendData()">
             <h2 class="form-signin-heading" style="color: #000000;">Please Register</h2>
-        <input type="text" class="input-block-level" placeholder="Name" ng-model="register.u_name"
+        <input type="text" class="input-block-level" placeholder="Full Name" ng-model="register.u_name"
                ng-minlength="4" required>
         <input type="text" class="input-block-level" placeholder="Email address" ng-model="register.email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required>
+        <input type="text" class="input-block-level" placeholder="Adress" ng-model="register.address"
+               ng-minlength="4" required>
+        <input type="text" class="input-block-level" placeholder="Phone Number" ng-model="register.phoneNumber"
+               ng-minlength="4" required>
         <input type="password" class="input-block-level" placeholder="Password" ng-model="register.pass" ng-minlength="5" required>
         <input type="password" class="input-block-level" placeholder="Re-Password" ng-model="register.re_pass" ng-minlength="5" ng-change="passCompare()" required>
         <p style="color: red; font-size:13px ">{{register.error}}</p>

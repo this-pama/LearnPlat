@@ -24,20 +24,13 @@ var admin_id= sessionStorage.admin_id;
                          console.log(res.data.q_name);
                          if(res.data.q_name){
                           // location.reload();
-                          console.log(res.data);
-
-
+                          // console.log(res.data);
                           $scope.success = "Question successfully added."
-                          // setTimeout(
-                          //    function()
-                          //    {
-                          //        location.reload();
-                          //    }, 0001);
                          }else{
                           $scope.error = "Upload failed"
                          }
 
-                     },function(res){ alert("Internal Error occurred");  })//http request to send data to server to save in db
+                     },function(res){ console.log("Internal Error occurred");  })//http request to send data to server to save in db
 
 
 

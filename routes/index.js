@@ -8,6 +8,8 @@ exports.regUser = function(req,res){
 	var fullName= req.body.fullName;
 	var email= req.body.email;
 	var pass= req.body.pass;
+	var phoneNumber= req.body.phoneNumber
+	var address= req.body.address
 
 //check if user exist
 	User.findOne({ fullName: fullName, email: email },function(err,data){
@@ -24,7 +26,9 @@ exports.regUser = function(req,res){
 	                var user_info = new User({
 				        fullName: fullName,
 				        email: email,
-				        pass: pass
+				        pass: pass,
+				        phoneNumber: phoneNumber,
+				        address: address
 			    	});
 
 				    user_info.save(function(err,data){
@@ -67,7 +71,7 @@ exports.studentLogin = function(req,res){
                 res.send("error");
 
             }else{
-                console.log("data == "+data);
+                // console.log("data == "+data);
                 res.send(data);
             }//else  for data forward
 
@@ -94,7 +98,7 @@ exports.getUserInfo = function(req,res){
                 res.send("error");
 
             }else{
-                console.log("data == "+data);
+                // console.log("data == "+data);
                 res.send(data);
             }//else  for data forward
 
@@ -138,7 +142,7 @@ exports.addQname = function(req,res){
 				    });
 
 	            }else{
-	                console.log("Question Name/Type Already Exist");
+	                // console.log("Question Name/Type Already Exist");
 	                res.send("Question Name/Type Already Exist");
 	            }
 
@@ -166,7 +170,7 @@ exports.checkQname = function(req,res){
 	                console.log('Checking for questiontype and code');
 				    res.send(data);
 	            }else{
-	                console.log("Question Name/Type does not Exist");
+	                // console.log("Question Name/Type does not Exist");
 	                res.send("Question Name/Type does not Exist");
 	            }
 
@@ -213,7 +217,7 @@ exports.addQuestion = function(req,res){
 				            res.send("Upload Fail "+err);
 				        }else{
 				            res.send(data);
-				            console.log(data)
+				            // console.log(data)
 				        }
 				    });//>save
 				    // console.log(question_info)
@@ -237,7 +241,7 @@ exports.getQuestionType = function(req,res){
     			res.send("No Question in Db")
     		}else{
     			res.send(data)
-    			console.log(data)
+    			// console.log(data)
     		}
     	}
     })
@@ -266,7 +270,7 @@ exports.loadQuestion= function(req, res){
 
 			            }else{
 			                res.send(data);
-			                console.log("These are the questions")
+			                // console.log("These are the questions")
 			            }
 
 			        }
@@ -308,7 +312,7 @@ exports.saveResult = function(req,res){
   var user_result = req.body.riteans_perc;
   var u_id = req.body.u_id;
   var q_name = req.body.q_name;
-    console.log(u_id+"=="+user_result);
+    // console.log(u_id+"=="+user_result);
     var myDate=new Date();
 
     //make a new collection results were all result will be saves {user_id,quiz_name,Result,date}, When result will be shown
@@ -345,7 +349,7 @@ var nodemailer = require('nodemailer');
 	var email= req.body.email;
 	var name = req.body.name
 	var message = req.body.message
-	console.log(message+"  "+ email+" name "+name)
+	// console.log(message+"  "+ email+" name "+name)
 	var mailOptions = {
 	  from: 'LearnPlat',
 	  to: email,
@@ -363,7 +367,7 @@ var nodemailer = require('nodemailer');
 	  if (error) {
 	    console.log(error);
 	  } else {
-	    console.log('Email sent: ' + info.response);
+	    // console.log('Email sent: ' + info.response);
 	    // res.send(info.response)
 	  }
 	});
@@ -372,12 +376,35 @@ var nodemailer = require('nodemailer');
 	  if (error) {
 	    console.log(error);
 	  } else {
-	    console.log('Email sent: ' + info.response);
+	    // console.log('Email sent: ' + info.response);
 	    res.send(info.response)
 	  }
 	});
 
 }
+
+
+//Delete Question Type
+exports.deleteQtype= function(req,res){
+	var q_name= req.body.q_name;
+	QuestionType.remove({q_name:q_name},function (err, data) {
+	      if (err) {// ...
+	        console.log('An error has occurred');
+	        res.send('An error has occurred'+err);
+	    }else {
+	        if(!data){
+	            console.log('record not found');
+	            res.send("record not found");
+	        }else{
+	            // console.log(data)
+	            res.send(data);
+	            }
+
+	        }
+
+	    })
+}//End Delete Question Type
+
 
 exports.index= function(req,res){
 	res.render('index', {title: 'LearnPlat'});

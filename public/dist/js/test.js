@@ -3,8 +3,6 @@ myApp.controller('testController',function($scope,$location,$http){
     var qname = sessionStorage.qname;
     var instruction = sessionStorage.instruction;
     var qcode= sessionStorage.qcode;
-    // var qcode = $scope.qcode.code;
-    // var qname = $scope.qcode.name;
     $scope.qcode={name:null, code:null}
 
     if(!id){
@@ -13,14 +11,11 @@ myApp.controller('testController',function($scope,$location,$http){
         $scope.user_out = true;
 
     }else{
-        console.log("Id found "+id)
-
+        // console.log("Id found "+id)
        $scope.user_in = true;
         $scope.user_out = false;
       $scope.checkSendData = function(){
         if($scope.qcode.name != null && $scope.qcode.code != null){
-
-          // var instruction = $scope.qcode.instruction;
 
           $scope.error=""
           $http({
@@ -37,16 +32,16 @@ myApp.controller('testController',function($scope,$location,$http){
               sessionStorage.setItem('qname',qname);
               sessionStorage.setItem('qcode',qcode);
               sessionStorage.setItem('instruction',instruction);
-              console.log(instruction+"  "+ qname+"  "+qcode)
+              // console.log(instruction+"  "+ qname+"  "+qcode)
 
               $location.path('/load')
             }else{
               $scope.error= "Question name/code is incorrect";
-              console.log('Question name/code is incorrect')
+              // console.log('Question name/code is incorrect')
             }
           }), function(res){
             $scope.error= " Error occured"
-            console.log('Error occured')
+            // console.log('Error occured')
           }// end of http request
         }else{
           $scope.error= "Please input Question Name and Access Code"

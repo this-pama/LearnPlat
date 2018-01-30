@@ -4,9 +4,9 @@ myApp.controller('adminLogin',function($http,$location,$scope){
  
         $scope.checkSendData = function(){
             // console.log(email +" 2 "+ pass)
-                    var email = $scope.admin.email;
-                    var pass= $scope.admin.pass;
-                    console.log(email +" "+ pass)
+            var email = $scope.admin.email;
+            var pass= $scope.admin.pass;
+            console.log(email +" "+ pass)
              if(!email){
                 $scope.error = "Email cannot be empty ";
                 console.log("Email cannot be empty ");

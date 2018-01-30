@@ -11,7 +11,10 @@ var admin_id= sessionStorage.admin_id;
     var u_id= $scope.u_id
     var fullName = $scope.fullName
     $scope.adminHeader = true
+
+
 // set the number of users
+    var numberOfUser= function(){
             $http({
              url:"/findAllUser",
              data:{},
@@ -23,11 +26,12 @@ var admin_id= sessionStorage.admin_id;
                   }else{
                   $scope.error = "User number is undefined"
                   }
-             },function(res){ alert("Internal Error occurred");  })//http request to find all user
-
+             },function(res){ console.log("Internal Error occurred");  })//http request to find all user
+    }
 
      // set the number of admin
-        $http({
+     var numberOfAdmin= function(){
+          $http({
          url:"/adminList",
          data:{},
          method:"POST"
@@ -39,18 +43,26 @@ var admin_id= sessionStorage.admin_id;
               $scope.error = "Admin number is undefined"
               }
          },function(res){ console.log("Internal Error occurred");  })//http request to find all admin
+     }
 
+
+    numberOfUser();
+    numberOfAdmin()
 
     //list  all user
       $scope.findAllUser= function(){
+         $scope.register= false;
+        $scope.qType= false;
+        $scope.addquestion= false;
+        $scope.search= true;
+        $scope.adminSearch= false;
+        $scope.user= false;
         $scope.allUser= true;
         $scope.allAdmin= false;
-        $scope.adminHeader = false
-        $scope.search= true;
-        $scope.register= false;
-        $scope.addquestion=false
-        $scope.qList= false
+        $scope.adminHeader= false
         $scope.user = false;
+        $scope.admin = false;
+        $scope.qList= false
         $http({
              url:"/findAllUser",
              data:{},
@@ -72,14 +84,19 @@ var admin_id= sessionStorage.admin_id;
 
 //list  all Admin
       $scope.findAllAdmin= function(){
-        $scope.allAdmin= true;
-        $scope.allUser= false;
-        $scope.adminHeader = false
+         $scope.register= false;
+        $scope.qType= false;
+        $scope.addquestion= false;
         $scope.search= false;
-        $scope.register= false;
-        $scope.addquestion=false
-        $scope.qList= false
+        $scope.adminSearch= true;
+        $scope.user= false;
+        $scope.allUser= false;
+        $scope.allAdmin= true;
+        $scope.adminHeader= false
         $scope.user = false;
+        $scope.admin = false;
+        $scope.qList= false
+
         $http({
              url:"/adminList",
              data:{},
@@ -89,7 +106,7 @@ var admin_id= sessionStorage.admin_id;
                  if(res.data){
                   $scope.allAdmin = res.data
                   }else{
-                  $scope.error = "No Admin Found"
+                  $scope.error = "No Admin Found."
                   }
              },function(res){ console.log("Internal Error occurred");  })//http request to find all user
           } //end of findAllAdmin function
@@ -116,34 +133,42 @@ var admin_id= sessionStorage.admin_id;
                     $scope.user = true;
                     $scope.allUser = false;
                     }else{
-                    //   $scope.user = true;
-                    // $scope.allUser = false;
-                    //   $scope.errorMessage = "No user found"
-                      $http({
-                         url:"/findUser",
-                         data:{fullName: $scope.searchUser},
-                         method:"POST"
-                     }).then(function(res){
-                             console.log(res.data);
-                             if(res.data[0]){
-                              $scope.searchResult = res.data
-                                console.log($scope.searchResult);
-                                $scope.user = true;
-                                $scope.allUser = false;
-                              }else{
-                                $scope.user = true;
-                              $scope.allUser = false;
-                              $scope.errorMessage = "No User Found"
-                              }
-                         },function(res){ alert("Internal Error occurred");  })
-
+                      $scope.user = true;
+                    $scope.allUser = false;
+                      $scope.errorMessage = "No user found. Please search by Emai"
                     }
                },function(res){ console.log("Internal Error occurred");  })//http request to find user
-        // }else{
-        //   $scope.user = true;
-        //   $scope.allUser = false;
-        //   $scope.errorMessage = "Please search by Name or Email"
-        // }
+
+
+      } //end of findUser function
+
+
+
+      //find one admin
+      $scope.findAdmin= function(){
+        // if($scope.searchUser != null){
+          $scope.searchResultAdmin = null
+          // $scope.searchUser= null
+          $scope.errorMessage= ''
+          $http({
+               url:"/findAdmin",
+               data:{email: $scope.searchAdmin},
+               method:"POST"
+           }).then(function(res){
+                   console.log(res.data);
+                   if(res.data[0]){
+                    // console.log(res.data);
+                    $scope.searchResultAdmin = res.data
+                    console.log($scope.searchResultAdmin);
+                    $scope.admin = true;
+                    $scope.allAdmin = false;
+                    }else{
+                      $scope.admin = true;
+                    $scope.allAdmin = false;
+                      $scope.errorMessage = "No user found. Please search by Emai"
+                    }
+               },function(res){ console.log("Internal Error occurred");  })//http request to find user
+
 
       } //end of findUser function
 
@@ -166,70 +191,77 @@ $scope.showRegAdmin= function(){
         $scope.qType= false;
       $scope.addquestion= false;
       $scope.search= false;
+      $scope.adminSearch= false;
       $scope.user= false;
       $scope.allUser= false;
       $scope.allAdmin= false;
       $scope.adminHeader= false
       $scope.user = false;
+      $scope.admin = false;
       $scope.qList= false
 }
 
 //show Qtype session
 $scope.showQtype= function(){
-      $scope.qType= true;
+       $scope.register= false;
+        $scope.qType= true;
       $scope.addquestion= false;
-      $scope.register= false;
       $scope.search= false;
+      $scope.adminSearch= false;
       $scope.user= false;
       $scope.allUser= false;
       $scope.allAdmin= false;
       $scope.adminHeader= false
       $scope.user = false;
+      $scope.admin = false;
       $scope.qList= false
 }
-
 //show add question session
 //show Qtype session
 $scope.showAddQuestion= function(){
-    $scope.addquestion= true;
-      $scope.qType= false;
-      $scope.register= false;
+     $scope.register= false;
+        $scope.qType= false;
+      $scope.addquestion= true;
       $scope.search= false;
+      $scope.adminSearch= false;
       $scope.user= false;
       $scope.allUser= false;
       $scope.allAdmin= false;
       $scope.adminHeader= false
       $scope.user = false;
+      $scope.admin = false;
       $scope.qList= false
 }
 
 $scope.showQuestionList= function(){
-      $scope.qList= true;
-     $scope.addquestion= false;
-      $scope.qType= false;
       $scope.register= false;
+      $scope.qType= false;
+      $scope.addquestion= false;
       $scope.search= false;
+      $scope.adminSearch= false;
       $scope.user= false;
       $scope.allUser= false;
       $scope.allAdmin= false;
       $scope.adminHeader= false
       $scope.user = false;
+      $scope.admin = false;
+      $scope.qList= true
 }
 $scope.registerAdmin = function(){
-    // console.log(email +" 2 "+ pass)
-
-            var email = $scope.admin.email;
-            var pass= $scope.admin.pass;
-            var name= $scope.admin.name;
-            var re_pass= $scope.admin.re_pass;
-            console.log(email +" "+ pass +" "+ name +" "+re_pass)
+      var email = $scope.email;
+      var pass= $scope.pass;
+      var fullName= $scope.fullName;
+      var re_pass= $scope.re_pass;
+      var address= $scope.address
+      var phoneNumber= $scope.phoneNumber
+      console.log(email +" "+ pass +" "+ name +" "+re_pass)
      if(!email){
         $scope.error = "Email cannot be empty ";
         console.log("Email cannot be empty ");
-    }else if(!pass && pass == re_pass){
+    }else if(!pass || pass != re_pass){
          $scope.error = "Password/Confirm Password must be the same and must be more than 4 characters ";
          console.log("Password cannot be empty ");
-    }else if(!name){
+    }else if(!fullName){
          $scope.error = "Name cannot be empty ";
          console.log("Name cannot be empty  ");
     }
@@ -237,20 +269,21 @@ $scope.registerAdmin = function(){
 
             $http({
             url:"/registerAdmin",
-            data:{fullName:name,email:email,pass:pass},
+            data:{fullName:fullName,email:email,pass:pass, address:address, fullName:fullName},
             method:"POST"
 
         }).then(function(res){
                 if(res.data.fullName){
-                  $scope.success = "New Admin Register Successfully";
-                  $scope.admin={name:null, email:null, pass:null, re_pass:null}
+                  $scope.showRegAdmin()
+                  numberOfAdmin()
+                  $scope.success = "New Admin Registered Successfully";
+                  $scope.fullName=null; $scope.email=null; $scope.pass=null; $scope.re_pass=null; $scope.address=null;
+                  $scope.phoneNumber=null;
 
                 }else{
                     $scope.error= "User already Exist"
                     console.log("User already Exist")
                 }
-
-                console.log(sessionStorage.id);
                  }, function(res){
                 // $scope.message = "error"
                     $scope.error= "Error occurred"
@@ -365,16 +398,18 @@ $scope.addQuestion = function(){
 
       //Get list of Questions
       $scope.getQuestionList= function(){
-             $scope.qList= true;
-             $scope.addquestion= false;
-              $scope.qType= false;
-              $scope.register= false;
-              $scope.search= false;
-              $scope.user= false;
-              $scope.allUser= false;
-              $scope.allAdmin= false;
-              $scope.adminHeader= false
-              $scope.user = false;
+          $scope.register= false;
+            $scope.qType= false;
+          $scope.addquestion= false;
+          $scope.search= false;
+          $scope.adminSearch= false;
+          $scope.user= false;
+          $scope.allUser= false;
+          $scope.allAdmin= false;
+          $scope.adminHeader= false
+          $scope.user = false;
+          $scope.admin = false;
+          $scope.qList= true
         $http({
              url:"/getQuestionType",
              data:{},
@@ -385,27 +420,126 @@ $scope.addQuestion = function(){
                   }else{
                   $scope.qListError = "No Question Found"
                   }
-             },function(res){ alert("Internal Error occurred");  })//http request to find all user
+             },function(res){ console.log("Internal Error occurred");  })//http request to find all user
           } //end of getQuestionList function
       // }
 
 //delete user
 $scope.deleteUser = function(){
-  var u_id = $scope.$watch.gt
-  console.log(u_id)
+  var email = $scope.deleteUserEmail
+  $scope.deleteUserSuccess = ""
+  $scope.deleteUserError = ""
         $http({
              url:"/deleteUser",
-             data:{id: u_id},
+             data:{email: email},
              method:"POST"
          }).then(function(res){
-                 if(res.data){
-                  console.log(res.data)
+                 if(res.data.n == 1){
+                  // console.log(res.data)
+                  $scope.deleteUserSuccess = "Successfully Deleted"
+                  $scope.findAllUser()
+                  numberOfUser()
+                  }else{
+                  $scope.deleteUserError = "No User Found"
+                  }
+             },function(res){ console.log("Internal Error occurred");  })//http request to delete user
+}// end of delete user
+
+
+//delete Admin
+$scope.deleteAdmin = function(){
+  var email = $scope.deleteAdminEmail
+  $scope.deleteSuccess = ""
+  $scope.deleteError = ""
+        $http({
+             url:"/deleteAdmin",
+             data:{email: email},
+             method:"POST"
+         }).then(function(res){
+                 if(res.data.n == 1){
+                  // console.log(res.data)
+                  $scope.deleteSuccess = "Successfully Deleted"
+                  $scope.findAllAdmin()
+                  numberOfAdmin()
+                  }else{
+                  $scope.deleteError = "No User Found"
+                  }
+             },function(res){ console.log("Internal Error occurred");  })//http request to delete admin
+}// end of delete Admin
+
+
+//delete Qtype
+$scope.deleteQtype = function(){
+  var qname = $scope.deleteQname
+  $scope.deleteQtypeSuccess = ""
+  $scope.deleteQtypeError = ""
+        $http({
+             url:"/deleteQtype",
+             data:{q_name: qname},
+             method:"POST"
+         }).then(function(res){
+                 if(res.data.n == 1){
+                  // console.log(res.data)
+                  $scope.deleteQtypeSuccess = "Successfully Deleted"
+                  $scope.getQuestionList()
+                  }else{
+                  $scope.deleteQtypeError = "No Record Found"
+                  }
+             },function(res){ console.log("Internal Error occurred");  })//http request to delete user
+}// end of delete Qtype
+
+
+//Update Admin
+$scope.updateAdmin = function(){
+  var email = $scope.email
+  var address = $scope.address
+  var phoneNumber= $scope.phoneNumber
+  var pass = $scope.pass
+  var fullName= $scope.fullName
+  $scope.updateAdminSuccess = ""
+  $scope.updateAdminError = ""
+        $http({
+             url:"/updateAdmin",
+             data:{email: email, address: address, pass: pass, fullName: fullName, phoneNumber: phoneNumber},
+             method:"POST"
+         }).then(function(res){
+          console.log(res.data)
+                 if(res.data.email){
+                  
+                  $scope.updateAdminSuccess = "Successfully Updated"
+                  $scope.findAllAdmin()
+                  }else{
+                  $scope.updateAdminError = "No Record Found"
+                  }
+             },function(res){ console.log("Internal Error occurred");  })//http request to Update admin
+}// end of Update Admin
+
+
+//Update User
+$scope.updateUser = function(){
+  var email = $scope.email
+  var address = $scope.address
+  var phoneNumber= $scope.phoneNumber
+  var pass = $scope.pass
+  var fullName= $scope.fullName
+  $scope.updateUserSuccess = ""
+  $scope.updateUserError = ""
+        $http({
+             url:"/updateUser",
+             data:{email: email, address: address, pass: pass, fullName: fullName, phoneNumber: phoneNumber},
+             method:"POST"
+         }).then(function(res){
+          console.log(res.data)
+                 if(res.data.email){
+                  
+                  $scope.updateUserSuccess = "Successfully Updated"
                   $scope.findAllUser()
                   }else{
-                  $scope.qListError = "No Question Found"
+                  $scope.updateUserError = "No Record Found"
                   }
-             },function(res){ alert("Internal Error occurred");  })//http request to delete user
-}// end of delete user
+             },function(res){ console.log("Internal Error occurred");  })//http request to Update User
+}// end of Update User
+
 
 //load page again
 $scope.loadPage = function(){

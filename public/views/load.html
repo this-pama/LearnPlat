@@ -23,7 +23,7 @@
                <p style="color: red">{{err_message}}</p>
                <button ng-show="prev_btn" class="btn btn-warning" ng-click="change_q('prev')">Previous</button>
                <button ng-show="next_btn" class="btn btn-success" ng-click="change_q('next')" >Next</button>
-               <button ng-show="result_btn" class="btn btn-primary" ng-click="generate_result()" > End</button>
+               <button ng-show="result_btn" class="btn btn-primary" ng-click="saveResult()" > End</button>
            </div>
        <div ng-show="result_box">
            
@@ -33,7 +33,7 @@
 
                <progress percent="dynamicObject" class="progress-striped active"></progress>
            <p>You Scored: {{rite_percentage}}%</p>
-              <button ng-click="saveResult()" class="btn btn-primary">Save Result</button> <button class="btn btn-danger" ng-click="go('/test')">Retake/Exit</button><br>
+              <!-- <button ng-click="saveResult()" class="btn btn-primary">Save Result</button> --> <button class="btn btn-danger" ng-click="go('/test')">Retake/Exit</button><br>
                <p>You can see all your results at the Result page </p>
            </div>
 

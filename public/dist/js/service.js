@@ -63,7 +63,7 @@ myApp.factory('userRegister',function($http,$location){
 
     register.UserRegister= function(){
         var u_name,email,pass,re_pass;
-        var register_data = {u_name:null,email:null,pass:null,re_pass:null};
+        var register_data = {u_name:null,email:null,pass:null,re_pass:null,phoneNumber: null, address:null};
 
         //Checking Fields
             getData = function(){
@@ -72,6 +72,8 @@ myApp.factory('userRegister',function($http,$location){
                  email =  register_data.email;
                  pass =  register_data.pass;
                  re_pass =  register_data.re_pass;
+                 phoneNumber =  register_data.phoneNumber;
+                 address =  register_data.address;
                // console.log(u_name+email+pass+re_pass);
                return u_name,email,pass,re_pass ;
                 }//getData()
@@ -89,7 +91,7 @@ myApp.factory('userRegister',function($http,$location){
                         }else{register_data.error = "";
                                 $http({
                                 url:"/register",
-                                data:{fullName:u_name,pass:pass,email:email},
+                                data:{fullName:u_name,pass:pass,email:email, phoneNumber:phoneNumber,address:address},
                                 method:"POST"
 
                                 }).then(function(res){

@@ -1,6 +1,5 @@
 myApp.controller('supportController',function($scope,$location,$http){
       // $scope.qcode = {instruction:null, name:null,code:null}
-
       $scope.sendMail = function(){
         if($scope.name != null && $scope.email != null && $scope.message != null){
           var name = $scope.name;
@@ -15,10 +14,10 @@ myApp.controller('supportController',function($scope,$location,$http){
           }).then(function(res){
 
               location.reload()
-              console.log(res.data)
+              // console.log(res.data)
           }, function(res){
             $scope.error= " Error occured"
-            console.log('Error occured')
+            // console.log('Error occured')
           })// end of http request
         }else{
           $scope.msg= "Please fill the form"

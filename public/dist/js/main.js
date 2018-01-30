@@ -71,6 +71,11 @@ var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
 				controller: 'adminSignout'
 			})
 
+			.when('/live',{
+				templateUrl: 'views/live.html',
+				controller: 'liveController'
+			})
+
 			.when('/error',{
                 templateUrl:'views/error.html',
                 controller: 'errorController'
@@ -84,13 +89,13 @@ var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
 	myApp.controller('navController',function($scope,$location,$http){
     var id = sessionStorage.id;
     if(!id){
-       console.log("not found"+id)
+       // console.log("not found"+id)
        $scope.inBtn = true;
        $scope.regBtn = true;
         $scope.outBtn = false;
         $scope.message = "";
     }else{
-        console.log("found"+id)
+        // console.log("found"+id)
         $scope.inBtn = false;
         $scope.regBtn = false;
         $scope.outBtn = true;
@@ -99,20 +104,7 @@ var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
             data:{u_id:id},
             method:"POST"
         }).then(function successCallback(res){
-        	// console.log(res.data)
-        	// if(!res.data._id){
-        		$scope.message=res.data.fullName
-        		// $scope.inBtn = true;
-        		// $scope.outBtn = false;
-        		console.log('login successful')
-        	// }else{
-        	//     $scope.message = res.data.fullName;
-         //        console.log($scope.message)
-         //        sessionStorage.clear();
-         //        // console.log('getUserInfo url')
-        	// }
-
-
+        	$scope.message=res.data.fullName
             },function errorCallback(res){ 
             	console.log("Error")
         	})//Error

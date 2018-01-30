@@ -26,7 +26,7 @@
             <a href="" ng-click="go('/')" class="nav-link active">Home </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link" ng-click="go('/')">Live Tutorial </a>
+            <a href="" class="nav-link" ng-click="go('/live')">Live Tutorial </a>
           </li>
           <li class="nav-item dropdown">
   <a class="dropdown-toggle nav-link" href=""  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -47,10 +47,10 @@
           </li>
         </ul>
         <div class="navbar-nav ml-auto">
-             <a ng-click="go('/signin')"> <span style="color: #ffffff; font-size: 18px">{{message}}</span></a>
+              <div class="pl-3"><span style="color: #ffffff; font-size: 18px">{{message}}</span></div>
             <div><button ng-show="inBtn" ng-click="go('/signin')" class="btn btn-success">Sign in</button></div>
             <div><button ng-show="outBtn" ng-click="go('/signout')" class="btn btn-warning">Sign out</button></div>
-            <button ng-show="regBtn" ng-click="go('/register')" class="btn btn-warning">Register</button>
+            <div><button ng-show="regBtn" ng-click="go('/register')" class="btn btn-warning">Register</button></div>
           </div>
       </div>
     </div>
@@ -96,7 +96,7 @@
   <script src="/dist/js/signin.js"></script>
   <script src="/dist/js/signout.js"></script>
   <script src="/dist/js/register.js"></script>
-  <script src="/dist/js/qcode.js"></script>
+  <!-- <script src="/dist/js/qcode.js"></script> -->
   <script src="/dist/js/test.js"></script> 
   <script src="/dist/js/load.js"></script>
   <script src="/dist/js/support.js"></script>  
@@ -110,12 +110,9 @@
   <script src="/dist/js/angular-route.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
-
+  <script src="/dist/js/jsmpeg.min.js"></script> <!-- for no html5 browsers support -->
   <script src="/dist/js/ng-file-upload-shim.js"></script> <!-- for no html5 browsers support -->
   <script src="/dist/js/ng-file-upload.min.js"></script>
-  <!--   <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
-  <script>
-  CKEDITOR.replace('editor1');
-  </script> -->
+  <script src="/dist/js/live.js"></script>
 
 </html>
