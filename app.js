@@ -16,7 +16,7 @@ var superAdmin = require("./routes/superadmin");
 var user = require("./routes/user");
 var config = require("./config");
 var app= express();
-var port= 3000 || process.env.PORT;
+var port=  process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine',  'ejs');
