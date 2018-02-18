@@ -4,7 +4,8 @@
   "description": "User will be able to take quiz and lean via video tutorials",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "app.js",
   },
   "author": "Dapo Aderemi",
   "license": "MIT",
@@ -26,5 +27,14 @@
     "path": "^0.12.7",
     "serve-favicon": "^2.4.5",
     "ws": "^4.0.0"
-  }
+  },
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/adedapopaul/LearnPlat"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "quiz app"
+  ],
 }
