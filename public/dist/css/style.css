@@ -101,3 +101,32 @@ body {
    background:#ff0;
    padding:10px;
 }
+
+/*Timer styling*/
+#clockdiv{
+  font-family: sans-serif;
+  color: #fff;
+  display: inline-block;
+  font-weight: 10;
+  text-align: center;
+  font-size: 15px;
+}
+
+#clockdiv > div{
+  padding: 3px;
+  border-radius: 3px;
+  background: #000;
+  display: inline-block;
+}
+
+#clockdiv div > span{
+  padding: 3px;
+  border-radius: 1px;
+  background: #000;
+  display: inline-block;
+}
+
+.smalltext{
+  padding-top: 5px;
+  font-size: 10px;
+}

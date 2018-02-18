@@ -17,13 +17,15 @@
               Admin
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"><a href="" ng-click=getQuestionList()>List of Questions</a></li>
-              <li class="list-group-item"><a href="">List of Videos</a></li>
-              <li class="list-group-item"><a href="" ng-click=findAllUser()>Users</a></li>
-              <li class="list-group-item"><a href="" ng-click=findAllAdmin()>Admin</a></li>
-              <li class="list-group-item"><a href="" ng-click=showRegAdmin() >Register New Admin</a></li>
-              <li class="list-group-item"><a href="" ng-click=showQtype()>Create Question Category</a></li>
-              <li class="list-group-item"><a href="" ng-click=showAddQuestion()>Add Question</a></li>
+              <li class="list-group-item" ng-show="l1"><a href="" ng-click=getQuestionList() >List of Questions</a></li>
+              <li class="list-group-item" ng-show="l2"><a href="" >List of Videos</a></li>
+              <li class="list-group-item" ng-show="l3"><a href=""  ng-click=showUploadVideo() >Upload Video</a></li>
+              <li class="list-group-item" ng-show="l4"><a href="" ng-click=findAllUser()>Users</a></li>
+              <li class="list-group-item" ng-show="l5"><a href="" ng-click=findAllAdmin()>Admin</a></li>
+              <li class="list-group-item" ng-show="l6"><a href="" ng-click=showRegAdmin()>Register New Admin</a></li>
+              <li class="list-group-item" ng-show="l7" ><a href="" ng-click=showRegSuperAdmin()>Register New Super Admin</a></li>
+              <li class="list-group-item" ng-show="l8"><a href="" ng-click=showQtype()>Create Question Category</a></li>
+              <li class="list-group-item" ng-show="l9"><a href="" ng-click=showAddQuestion()>Add Question</a></li>
             </ul>
           </div>
         </div>
@@ -36,7 +38,7 @@
           <input type="text" class="form-control" ng-model='searchUser' placeholder="Search User by Email"> 
           </div>
           <div class="col-md-2">
-          <button class="btn btn-primary d-flex"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
+          <button class="btn btn-primary d-flex" type="submit" ><i class="fa fa-search" aria-hidden="true"> Search</i></button>
           </div>
           </div>
         </form>  
@@ -48,7 +50,7 @@
           <input type="text" class="form-control" ng-model='searchAdmin' placeholder="Search Admin by Email"> 
           </div>
           <div class="col-md-2">
-          <button class="btn btn-primary d-flex"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
+          <button class="btn btn-primary d-flex" type="submit"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
           </div>
           </div>
         </form> 
@@ -56,12 +58,12 @@
           <div class="card" >
             <div class="card-header">
               Welcome!
-            </div>
+            </div><br>
             <div class="card-body">
               <div ng-show="adminHeader">
               <h5 class="card-title">Admin Dashboard</h5>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed totam nisi dolore eaque consequuntur, porro non optio harum quo hic. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque nulla necessitatibus voluptatum veritatis, quia laboriosam, reprehenderit harum eos saepe similique, dolore voluptate porro quis voluptatem asperiores fugit temporibus nisi quae!</p>
-              <a href="" class="btn btn-primary">Go somewhere</a>
+              <!-- <a href="" class="btn btn-primary">Go somewhere</a> -->
               </div>
             </div>
           </div>
@@ -76,7 +78,7 @@
                               <th>S.NO</th>
                               <th>Name</th>
                               <th>Email</th>
-                              <th>Password</th>
+                              <th>Phone Number</th>
                               <!-- <th>_Id</th> -->
                               <th>Delete</th>
                               <th>Update</th>
@@ -84,11 +86,11 @@
                         </thead>
                         <tbody>
                           <tr>
-                              <tr ng-repeat="g in allUser track by $index">
+                              <tr ng-repeat="g in allUser track by $id(g)">
                                   <td>{{$index+1}}</td>
                                   <td>{{g.fullName}}</td>
                                   <td>{{g.email}}</td>
-                                  <td>{{g.pass}}</td>
+                                  <td>{{g.phoneNumber}}</td>
                                   <!-- <td >{{g._id}}</td> -->
                                   <td data-toggle="modal" data-target="#exampleModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                                   <td data-toggle="modal" data-target="#updateUserModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -109,18 +111,18 @@
                               <th>S.NO</th>
                               <th>Name</th>
                               <th>Email</th>
-                              <th>Password</th>
+                              <th>Phone Number</th>
                               <th>Delete</th>
                               <th>Update</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                              <tr ng-repeat="g in searchResult">
+                              <tr ng-repeat="g in searchResult track by $id(g)">
                                   <td>{{$index+1}}</td>
                                   <td>{{g.fullName}}</td>
                                   <td>{{g.email}}</td>
-                                  <td>{{g.pass}}</td>
+                                  <td>{{g.phoneNumber}}</td>
                                   <!-- <td>{{g._id}}</td> -->
                                   <td data-toggle="modal" data-target="#exampleModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                                   <td data-toggle="modal" data-target="#updateUserModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -173,28 +175,82 @@
             </div>
           </div>
         </div>
+
+
+                  <!-- Register New Super Admin -->
+          <div class="container" ng-show='registerSuper'>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card-hearder">
+                <h3>Register New Super Admin</h3><br>
+              </div>
+              <div class="card-block">
+              <p style="color: blue">{{success}}</p>
+                <form  name="signInAdmin" >
+                <div class="form-group" ng-submit="registerSuperAdmin()">
+                  <label for="name" class="form-control-label">Full Name</label>
+                  <input type="text" class="form-control" ng-model="fullName" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-control-label">Email</label>
+                  <input type="email" class="form-control" ng-model="email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
+                </div>
+                <div class="form-group">
+                  <label for="address" class="form-control-label">Address</label>
+                  <input type="text" class="form-control" ng-model="address" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-control-label">Phone Number</label>
+                  <input type="number" class="form-control" ng-model="phoneNumber" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-control-label">Password</label>
+                  <input type="password" class="form-control" ng-model="pass" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="password" class="form-control-label">Confirm Password</label>
+                  <input type="password" class="form-control" ng-model="re_pass" ng-minlength="5" required>  
+                </div>
+                <p style="color: red; font-size:13px ">{{error}}</p>
+                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!signInAdmin.$valid" ng-click=registerAdmin()> Register</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <!-- Question Code session -->
           <div class="container" ng-show='qType'>
           <div class="row">
             <div class="col-md-6 offset-md-3">
               <div class="card-hearder">
-               <h3>Question Username & Access Code</h3>
+               <h5>Question Username & Access Code</h5>
               </div>
               <div class="card-block">
                 <form  name="createQcodeForm" ng-submit="createQtype()">
                 <p >Please note down the Question name and code for future use</p>
                 <div class="form-group">
-                <div class="form-group">
                   <input type="text" class="form-control" placeholder="Title" ng-model="qcode.title" ng-minlength="4" required> 
                 </div>
+                  <div class="form-group">
+                  <input type="number" class="form-control" placeholder="Set Time in Seconds to Take Test (Optional)" ng-model="qcode.time" required> 
+                </div>
+                <div class="form-group">
+                  <label class="mr-sm-2" for="inlineFormCustomSelect">Randomize Question for users</label>
+                  <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="randomize">
+                    <option selected>Choose...</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                  </select>
+                </div>
+                <div class="form-group">
                   <textarea type="text" class="form-control" placeholder="Question Instruction (Optional)" ng-model="qcode.instruction" ng-minlength="4"></textarea>
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="Question Name" ng-model="qcode.name" ng-minlength="4" required> 
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Question Name" ng-model="qcode.code" ng-minlength="4" required> 
+                  <input type="text" class="form-control" placeholder="Access Code" ng-model="qcode.code" ng-minlength="4" required> 
                 </div>
                 <p style="color: red; font-size:13px ">{{error}}</p>
                 <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!createQcodeForm.$valid"> Create</button>
@@ -213,7 +269,7 @@
         <form name="addQuestForm" ng-submit="addQuestion()">
 
             <h2  style="color: #000000;">Add Question</h2>
-            <p style="color: blue">check the correct answer</p>         
+            <p style="color: blue">Please check the correct answer</p>         
             <div class="form-group bg-faded p-3">
                 <label for="Question" class="form-control-label">Question</label><br>
                 <textarea type="text" class="form-control" cols="30" rows="10" name="editor1" class="input-block-level" placeholder="Question" ng-model="question.q"  required></textarea>
@@ -224,18 +280,18 @@
             <div class="form-group bg-faded p-3">
                 <label for="file" class="form-control-label">Image Upload (Optional)</label>
                 <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="1MB" ngf-model-invalid="errorFile" >
-                  <i ng-show="addQuestForm.file.$error.required"></i><br>
+                  <i ng-show="addQuestForm.file.$error"></i><br>
                   <i ng-show="addQuestForm.file.$error.maxSize">File too large 
                       {{errorFile.size / 1000000|number:1}}MB: max 1M</i>
                   <img ng-show="addQuestForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
                   <br>
                   <!-- <button ng-disabled="!myForm.$valid" 
                           ng-click="uploadPic(picFile)">Submit</button> -->
-                  <span class="progress" ng-show="picFile.progress >= 0">
+                  <!-- <span class="progress" ng-show="picFile.progress >= 0">
                     <div style="width:{{picFile.progress}}%" 
                         ng-bind="picFile.progress + '%'"></div>
                   </span>
-                  <span ng-show="picFile.result">Upload Successful</span>
+                  <span ng-show="picFile.result">Upload Successful</span> -->
                   <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
             </div>
 
@@ -271,7 +327,7 @@
           <span style="color: red">{{addQsuccess}}</span><br>
 
 
-            <button class="btn btn-large btn-success" type="submit" ng-click="uploadPic(picFile)" ng-model="submit" ng-disabled="!addQuestForm.$valid">Add Question</button>
+            <button class="btn btn-large btn-success" type="submit" ng-disabled="!addQuestForm.$valid">Add Question</button>
 
         </form>
         </div>
@@ -291,19 +347,21 @@
                     <th>Title</th>
                     <th>Username</th>
                     <th>Access Code</th>
+                    <th>Question Time</th>
                     <th>Delete</th>
                     <th>Update</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                    <tr ng-repeat="g in questionList">
+                    <tr ng-repeat="g in questionList track by $id(g)">
                         <td>{{$index+1}}</td>
                         <td>{{g.title}}</td>
                         <td>{{g.q_name}}</td>
                         <td>{{g.q_code}}</td>
+                        <td>{{g.time}}</td>
                         <td data-toggle="modal" data-target="#qtypeModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                        <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                        <td data-toggle="modal" data-target="#updateQtypeModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                     </tr>
                 </tr>
                 
@@ -323,20 +381,20 @@
                     <th>S.NO</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Password</th>
-                    <th>_Id</th>
+                    <th>Phone Number</th>
+                    <!-- <th>_Id</th> -->
                     <th>Delete</th>
                     <th>Update</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                    <tr ng-repeat="g in allAdmin">
+                    <tr ng-repeat="g in allAdmin track by $id(g)">
                         <td>{{$index+1}}</td>
                         <td>{{g.fullName}}</td>
                         <td>{{g.email}}</td>
-                        <td>{{g.pass}}</td>
-                        <td>{{g._id}}</td>
+                        <td>{{g.phoneNumber}}</td>
+                       <!--  <td>{{g._id}}</td> -->
                         <td data-toggle="modal" data-target="#adminModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                         <td data-toggle="modal" data-target="#updateAdminModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                     </tr>
@@ -360,18 +418,18 @@
                   <th>S.NO</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Password</th>
+                  <th>Phone Number</th>
                   <th>Delete</th>
                   <th>Update</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                  <tr ng-repeat="g in searchResultAdmin">
+                  <tr ng-repeat="g in searchResultAdmin track by $id(g)">
                       <td>{{$index+1}}</td>
                       <td>{{g.fullName}}</td>
                       <td>{{g.email}}</td>
-                      <td>{{g.pass}}</td>
+                      <td>{{g.phoneNumber}}</td>
                       <!-- <td>{{g._id}}</td> -->
                       <td data-toggle="modal" data-target="#adminModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                       <td data-toggle="modal" data-target="#updateAdminModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -384,8 +442,43 @@
     </div>
 
 
+      <!-- //UPLOAD VIDEO -->
+          <div class="container" ng-show='uploadvideo'>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card-hearder">
+               <h5>Upload Video</h5>
+              </div>
+              <div class="card-block">
+                <form  name="createQcodeForm" ng-submit="">
+                <p >Please upload video with title</p>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Title" ng-model="video.title" ng-minlength="4" required> 
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Category" ng-model="video.category" ng-minlength="4" required> 
+                </div>
+                <div class="form-group">
+                  <textarea type="text" class="form-control" placeholder="Description" ng-model="video.discription" ng-minlength="4"></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="file" class="form-control"  ng-model="video.file" accept="video/*" required> 
+                </div>
+                <p style="color: red; font-size:13px ">{{error}}</p>
+                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!createQcodeForm.$valid"> Upload</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
    
+
+<!-- LIST OF VIDEO -->
+<div ng-show='listVideo'>
+  
+</div>
+
 
   </div> <!-- end of container -->
   </div> <!-- <-end of col-md-7 -->
@@ -411,7 +504,18 @@
               <h5 class=" text-center card-title">No. of Admin</h5>
               <p class=" lead text-center card-text">{{noOfAdmin}}</p>
             </div>
-          </div>
+          </div><br><br>
+
+          <!-- set the number of super admin -->
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa fa-users"> S.Admin</i></h3>
+            </div>
+            <div class="card-body">
+              <h5 class=" text-center card-title">No. of Super Admin</h5>
+              <p class=" lead text-center card-text">{{noOfSuperAdmin}}</p>
+            </div>
+          </div><br><br>
         </div>
       </div>
 </div>
@@ -460,11 +564,7 @@
           <p style="color: red; font-size:13px ">{{updateAdminError}}</p>
           <p style="color: red; font-size:13px ">{{updateAdminSuccess}}</p>
           <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!updateAdminForm.$valid" ng-click=updateAdmin()> Update</button>
-         <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-disabled="!updateAdminForm" ng-click=updateAdmin()>Update</button>
-      </div>
- -->   </form>
+          </form>
         </div>
 
     </div>
@@ -513,13 +613,9 @@
           </div>
           <p style="color: red; font-size:13px ">{{updateUserError}}</p>
           <p style="color: red; font-size:13px ">{{updateUserSuccess}}</p>
-          <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!updateUserForm.$valid" ng-click=updateUser()> Update</button>
+          <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!updateUserForm.$valid" > Update</button>
         </form>
         </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click=updateUser()>Update</button>
-      </div> -->
     </div>
   </div>
 </div>
@@ -613,3 +709,54 @@
           </div>
         </div>
       </div>
+
+
+      <!--Update Question Type  Modal -->
+<div class="modal fade" id="updateQtypeModal" tabindex="-1" role="dialog" aria-labelledby="updateQtypeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateQtypeModalLabel">Update Question Type</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-block">
+          <form  name="updateQtypeForm" ng-submit=updateQtype() >
+          <div class="form-group">
+          <!-- <p>Note: You can't Update Title. Title must be the same.</p> -->
+            <label for="name" class="form-control-label">New Title</label>
+            <input type="text" class="form-control" ng-model="title"  required>  
+          </div>
+          <div class="form-group">
+            <label for="name" class="form-control-label">Old Username</label>
+            <input type="text" class="form-control" ng-model="oldUname" required>  
+          </div>
+          <div class="form-group">
+            <label for="name" class="form-control-label">New Username</label>
+            <input type="text" class="form-control" ng-model="newUname" required>  
+          </div>
+          <div class="form-group">
+            <label for="name" class="form-control-label">New Access code</label>
+            <input type="text" class="form-control" ng-model="code" required>  
+          </div>
+          <div class="form-group">
+            <label for="time" class="form-control-label">Set Time in Seconds</label>
+            <input type="number" class="form-control" ng-model="time" required>  
+          </div>
+          <div class="form-group">
+            <label for="instruction" class="form-control-label">New Instruction</label>
+            <textarea type="text" class="form-control" ng-model="instruction" rows="10" cols="5" required> </textarea> 
+          </div>
+          <p style="color: red; font-size:13px ">{{updateQtypeError}}</p>
+          <p style="color: red; font-size:13px ">{{updateQtypeSuccess}}</p>
+          <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!updateQtypeForm.$valid"> Update</button>
+        </form>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+

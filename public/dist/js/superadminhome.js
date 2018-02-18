@@ -1,11 +1,34 @@
-myApp.controller('adminhomeController',function($scope,$location,$http,$timeout,Upload,$window){
+myApp.controller('superAdminHomeController',function($scope,$location,$http,$timeout,Upload,$window){
 var admin_id= sessionStorage.admin_id;
+var superAdmin_id= sessionStorage.superAdmin_id;
 // $scope.noOfUser = sessionStorage.noOfUser;
 // var searching = sessionStorage.searching;
 
-  if(!admin_id){
-    $location.path('/adminlogin')
-  }else{
+  // if(!superAdmin_id){
+  //   // $location.path('/superadmin')
+  // }else 
+  if(admin_id){
+    $scope.l1= true
+    $scope.l2= true
+    $scope.l3= true
+    $scope.l4= false
+    $scope.l5= false
+    $scope.l6= false
+    $scope.l7= false
+    $scope.l8= true
+    $scope.l9= true
+    $scope.adminHeader= true
+  }else if(superAdmin_id){
+    $scope.l1= true
+    $scope.l2= true
+    $scope.l3= true
+    $scope.l4= true
+    $scope.l5= true
+    $scope.l6= true
+    $scope.l7= true
+    $scope.l8= true
+    $scope.l9= true
+    $scope.adminHeader= true
     var email = $scope.email
     var pass = $scope.pass
     var u_id= $scope.u_id
@@ -45,13 +68,33 @@ var admin_id= sessionStorage.admin_id;
          },function(res){ console.log("Internal Error occurred");  })//http request to find all admin
      }
 
+      // set the number of super admin
+     var numberOfSuperAdmin= function(){
+          $http({
+         url:"/superAdminList",
+         data:{},
+         method:"POST"
+     }).then(function(res){
+             // console.log(res.data);
+             if(res.data){
+              var length =res.data.length
+              $scope.noOfSuperAdmin = length
+              }else{
+              $scope.error = "Super Admin number is undefined"
+              }
+         },function(res){ console.log("Internal Error occurred");  })//http request to find all admin
+     }
+
 
     numberOfUser();
     numberOfAdmin()
-
+    numberOfSuperAdmin()
+}else{
+  $location.path('/')
+}
     //list  all user
       $scope.findAllUser= function(){
-         $scope.register= false;
+        $scope.register= false;
         $scope.qType= false;
         $scope.addquestion= false;
         $scope.search= true;
@@ -63,6 +106,8 @@ var admin_id= sessionStorage.admin_id;
         $scope.user = false;
         $scope.admin = false;
         $scope.qList= false
+        $scope.registerSuper= false;
+        $scope.uploadvideo= false
         $http({
              url:"/findAllUser",
              data:{},
@@ -80,7 +125,7 @@ var admin_id= sessionStorage.admin_id;
                   }
              },function(res){ alert("Internal Error occurred");  })//http request to find all user
           } //end of findAllUser function
-      }
+      // }
 
 //list  all Admin
       $scope.findAllAdmin= function(){
@@ -96,6 +141,8 @@ var admin_id= sessionStorage.admin_id;
         $scope.user = false;
         $scope.admin = false;
         $scope.qList= false
+        $scope.registerSuper= false;
+        $scope.uploadvideo= false
 
         $http({
              url:"/adminList",
@@ -199,6 +246,26 @@ $scope.showRegAdmin= function(){
       $scope.user = false;
       $scope.admin = false;
       $scope.qList= false
+      $scope.registerSuper= false;
+      $scope.uploadvideo= false
+}
+
+//show register super admin page
+$scope.showRegSuperAdmin= function(){
+        $scope.register= false;
+        $scope.qType= false;
+      $scope.addquestion= false;
+      $scope.search= false;
+      $scope.adminSearch= false;
+      $scope.user= false;
+      $scope.allUser= false;
+      $scope.allAdmin= false;
+      $scope.adminHeader= false
+      $scope.user = false;
+      $scope.admin = false;
+      $scope.qList= false
+      $scope.registerSuper= true;
+      $scope.uploadvideo= false
 }
 
 //show Qtype session
@@ -215,6 +282,8 @@ $scope.showQtype= function(){
       $scope.user = false;
       $scope.admin = false;
       $scope.qList= false
+      $scope.registerSuper= false;
+      $scope.uploadvideo= false
 }
 //show add question session
 //show Qtype session
@@ -231,6 +300,8 @@ $scope.showAddQuestion= function(){
       $scope.user = false;
       $scope.admin = false;
       $scope.qList= false
+      $scope.registerSuper= false;
+      $scope.uploadvideo= false
 }
 
 $scope.showQuestionList= function(){
@@ -246,6 +317,25 @@ $scope.showQuestionList= function(){
       $scope.user = false;
       $scope.admin = false;
       $scope.qList= true
+      $scope.registerSuper= false;
+      $scope.uploadvideo= false
+}
+
+$scope.showUploadVideo= function(){
+      $scope.register= false;
+      $scope.qType= false;
+      $scope.addquestion= false;
+      $scope.search= false;
+      $scope.adminSearch= false;
+      $scope.user= false;
+      $scope.allUser= false;
+      $scope.allAdmin= false;
+      $scope.adminHeader= false
+      $scope.user = false;
+      $scope.admin = false;
+      $scope.qList= false
+      $scope.registerSuper= false;
+      $scope.uploadvideo= true
 }
 $scope.registerAdmin = function(){
       var email = $scope.email;
@@ -301,14 +391,21 @@ $scope.createQtype= function(){
           var qcode = $scope.qcode.code;
           var qname = $scope.qcode.name;
           var title= $scope.qcode.title;
+          var time= $scope.qcode.time;
           var instruction = $scope.qcode.instruction;
+          var random = document.getElementById("randomize").value;
+          var randomize = Boolean
+          if(random == "Yes"){
+            randomize = true
+          }else( randomize = false)
 
           $scope.error=""
           $http({
             url: "/addqname",
-            data: {instruction:instruction,title:title, q_name: qname, q_code: qcode},
+            data: {instruction:instruction,title:title, q_name: qname, q_code: qcode, time:time, randomize: randomize},
             method: "POST"
           }).then(function(res){
+            console.log('data from add qname ', res.data)
             if(res.data.q_name){
               var qtype= res.data.q_name
               console.log("Question added successfully")
@@ -334,66 +431,73 @@ $scope.createQtype= function(){
 }
 
 
+
+
 //Add question session
 $scope.addQuestion = function(){
-      var q_name= sessionStorage.qtype
-      var title= sessionStorage.title
-      if(q_name != null){
+    var q_name= sessionStorage.qtype || $scope.question.q_name
+    var title= sessionStorage.title
+    if(q_name != null){
+      var picFile = $scope.picFile
+      // var imgName
          if($scope.question.r_a != null){
+          var addquestion = function(imgUrl){
+            // handle posting of question
+            var imgName = imgUrl
+             console.log("imgName 2 ", imgName)
              var question = $scope.question;
              $scope.error = "";
              console.log(question);
              $http({
                  url:"/addquestion",
-                 data:{question:question},
+                 data:{question:question, imgName: imgName},
                  method:"POST"
              }).then(function(res){
-                     // console.log(res.data.q_name);
+                     console.log(res.data);
                      if(res.data.q_name){
                       $scope.addQsuccess = "Question successfully added."
                       $scope.question = {q:null,a1:null,a2:null,a3:null,a4:null,r_a:null, q_name:q_name}
                       $scope.question.title= title;
+                      $scope.picFile = null
                      }else{
                       $scope.addQerror = "Upload failed"
                      }
 
                  },function(res){ alert("Internal Error occurred");  })//http request to send data to server to save in db
+          }
+          
+              if(picFile!= null){
+                         picFile.upload = Upload.upload({
+                          url: '/upload',
+                          data: {file: picFile},
+                        })
+                        .then(function (resp) {
+                          if(resp.data.error_code === 0){ //validate success
+                            console.log('Success ' + resp.config.data.file.name +  ' uploaded. Response: ');
+                           var imgName = resp.config.data.file.name
+                           addquestion(imgName)
 
-             }else{
-                 $scope.addQerror = "Please Select the correct answer."
-                 console.log("Please Select the correct answer.")
-             }
+                          } else {
+                              $window.alert('Image Upload Failed');
+                          }
+                        }, function (response) {
+                          if (response.status > 0)
+                            $scope.errorMsg = response.status + ': ' + response.data;
+                        });
+              }else(addquestion(null))
 
-             //take care of image upload to local folder
-               $scope.uploadPic = function(file) {
-                  file.upload = Upload.upload({
-                    url: '/upload',
-                    data: {file: file},
-                  });
-                  file.upload.then(function (resp) {
-                    if(resp.data.error_code === 0){ //validate success
-                          $window.alert('Success ' + resp.config.data.file.name + ' uploaded. Response: ');
-                          /* returns a file which will be uploaded with the newName instead of original file name */
-                          // Upload.rename(file, $scope.q_name)
-                      } else {
-                          $window.alert('an error occured');
-                      }
-                  }, function (response) {
-                    if (response.status > 0)
-                      $scope.errorMsg = response.status + ': ' + response.data;
-                  }, function (evt) {
-                    console.log(evt)
-                    // Math.min is to fix IE which reports 200% sometimes
-                    file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                    console.log(file.progress)
-                  });
-                  }
         }else{
-          $scope.addQerror= "Question cannot be added"
-          console.log("Question cannot be added")
-          $location.path('/adminhome')
-        }
-}
+             $scope.addQerror = "Please Select the correct answer."
+             console.log("Please Select the correct answer.")
+        }// end of if  $scope.question.r_a != null
+
+  
+    }else{ 
+      $scope.addQerror= "Question cannot be added"
+      console.log("Question cannot be added")
+      $location.path('/adminhome')
+    }// end of if q_name != null
+} // end of addQuestion function
 
 
       //Get list of Questions
@@ -410,6 +514,8 @@ $scope.addQuestion = function(){
           $scope.user = false;
           $scope.admin = false;
           $scope.qList= true
+          $scope.registerSuper= false;
+          $scope.uploadvideo= false
         $http({
              url:"/getQuestionType",
              data:{},
@@ -524,21 +630,97 @@ $scope.updateUser = function(){
   var fullName= $scope.fullName
   $scope.updateUserSuccess = ""
   $scope.updateUserError = ""
-        $http({
-             url:"/updateUser",
-             data:{email: email, address: address, pass: pass, fullName: fullName, phoneNumber: phoneNumber},
-             method:"POST"
-         }).then(function(res){
-          console.log(res.data)
-                 if(res.data.email){
-                  
-                  $scope.updateUserSuccess = "Successfully Updated"
-                  $scope.findAllUser()
-                  }else{
-                  $scope.updateUserError = "No Record Found"
-                  }
-             },function(res){ console.log("Internal Error occurred");  })//http request to Update User
+    $http({
+         url:"/updateUser",
+         data:{email: email, address: address, pass: pass, fullName: fullName, phoneNumber: phoneNumber},
+         method:"POST"
+     }).then(function(res){
+      console.log(res.data)
+         if(res.data.email){
+          
+          $scope.updateUserSuccess = "Successfully Updated"
+          $scope.findAllUser()
+          }else{
+          $scope.updateUserError = "No Record Found"
+          }
+     },function(res){ console.log("Internal Error occurred");  })//http request to Update User
 }// end of Update User
+
+
+//Update Qtype
+$scope.updateQtype = function(){
+  var oldQname = $scope.oldUname
+  var q_name = $scope.newUname
+  var title = $scope.title
+  var code= $scope.code
+  var time = $scope.time
+  var instruction= $scope.instruction
+  $scope.updateQtypeSuccess = ""
+  $scope.updateQtypeError = ""
+  // console.log('oldQname', oldQname, 'q_name', q_name, 'time', time)
+    $http({
+         url:"/updateQtype",
+         data:{q_name: q_name, oldQname: oldQname, q_code:code, title:title, time:time, instruction: instruction},
+         method:"POST"
+     }).then(function(res){
+      // console.log(res.data)
+         if(res.data.q_name){
+          
+          $scope.updateQtypeSuccess = "Successfully Updated"
+          $scope.getQuestionList()
+          }else{
+          $scope.updateQtypeError = "No Record Found"
+          }
+     },function(res){ console.log("Internal Error occurred");  })//http request to Update Qtype
+}// end of Update Qtype
+
+
+
+$scope.registerSuperAdmin = function(){
+      var email = $scope.email;
+      var pass= $scope.pass;
+      var fullName= $scope.fullName;
+      var re_pass= $scope.re_pass;
+      var address= $scope.address
+      var phoneNumber= $scope.phoneNumber
+      console.log(email +" "+ pass +" "+ name +" "+re_pass)
+     if(!email){
+        $scope.error = "Email cannot be empty ";
+        console.log("Email cannot be empty ");
+    }else if(!pass || pass != re_pass){
+         $scope.error = "Password/Confirm Password must be the same and must be more than 4 characters ";
+         console.log("Password cannot be empty ");
+    }else if(!fullName){
+         $scope.error = "Name cannot be empty ";
+         console.log("Name cannot be empty  ");
+    }
+    else {$scope.error = "";
+
+            $http({
+            url:"/registerSuperAdmin",
+            data:{fullName:fullName,email:email,pass:pass, address:address, fullName:fullName},
+            method:"POST"
+
+        }).then(function(res){
+                if(res.data.fullName){
+                  $scope.showRegSuperAdmin()
+                  numberOfSuperAdmin()
+                  $scope.success = "New Admin Registered Successfully";
+                  $scope.fullName=null; $scope.email=null; $scope.pass=null; $scope.re_pass=null; $scope.address=null;
+                  $scope.phoneNumber=null;
+
+                }else{
+                    $scope.error= "User already Exist"
+                    console.log("User already Exist")
+                }
+                 }, function(res){
+                // $scope.message = "error"
+                    $scope.error= "Error occurred"
+                    console.log("Error")
+            })
+    }
+    // }
+}//registerNewSuperAdmin
 
 
 //load page again
@@ -546,9 +728,9 @@ $scope.loadPage = function(){
 location.reload();
 }// end load page again
 
-  $scope.go = function (path){
-      $location.path(path);
-  }
+$scope.go = function (path){
+    $location.path(path);
+}
 
-})//adminhomeController
+})//superadminhomeController
 

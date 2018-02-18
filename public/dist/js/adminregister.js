@@ -10,6 +10,8 @@ myApp.controller('adminRegister',function($http,$location,$scope){
                     var pass= $scope.admin.pass;
                     var name= $scope.admin.name;
                     var re_pass= $scope.admin.re_pass;
+                    var address= $scope.admin.address;
+                    var phoneNumber= $scope.admin.phoneNumber;
                     console.log(email +" "+ pass +" "+ name +" "+re_pass)
              if(!email){
                 $scope.error = "Email cannot be empty ";
@@ -25,7 +27,7 @@ myApp.controller('adminRegister',function($http,$location,$scope){
 
                     $http({
                     url:"/registerAdmin",
-                    data:{fullName:name,email:email,pass:pass},
+                    data:{fullName:name,email:email,pass:pass, address:address, phoneNumber: phoneNumber},
                     method:"POST"
 
                 }).then(function(res){

@@ -1,4 +1,5 @@
 var Admin = require('../model/admin')
+// var SuperAdmin = require('../model/super')
 
 //REGISTER ADMIN
 exports.regAdmin = function(req,res){

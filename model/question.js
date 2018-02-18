@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var questionSchema = mongoose.Schema({
     question : String,
+    imgName: String,
     a_1: String,
     a_2: String,
     a_3: String,

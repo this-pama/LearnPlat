@@ -12,7 +12,9 @@ var upload = multer({ dest: 'uploads/' })
 
 var route = require("./routes");
 var admin = require("./routes/admin");
+var superAdmin = require("./routes/superadmin");
 var user = require("./routes/user");
+var config = require("./config");
 var app= express();
 var port= 3000 || process.env.PORT;
 
@@ -35,13 +37,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(errorhandler())
 }
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://pama:moronkeji@ds151820.mlab.com:51820/quizapp');
-var db = mongoose.connection;
-db.on('error',console.error.bind(console,'connection error'));
-db.once('open',function callback(){
-   console.log("db now connected");
-});
+config(app)
 
 app.get("/", route.index);
 app.post('/register',route.regUser);
@@ -56,6 +52,9 @@ app.post('/getUserInfo',route.getUserInfo);
 app.post('/addquestion',route.addQuestion);
 app.post('/adminLogin',admin.adminLogin);
 app.post('/registerAdmin',admin.regAdmin);
+app.post('/registerSuperAdmin',superAdmin.regSuperAdmin);
+app.post('/superAdminLogin',superAdmin.superAdminLogin);
+app.post('/superAdminList',superAdmin.superAdminList);
 app.post('/findAllUser',user.findAllUser);
 app.post('/findUser',user.findUser);
 app.post('/updateUser',user.updateUser);
@@ -66,21 +65,22 @@ app.post('/findAdmin',admin.findAdmin);
 app.post('/deleteAdmin',admin.deleteAdmin);
 app.post('/deleteQtype',route.deleteQtype);
 app.post('/updateAdmin',admin.updateAdmin);
+app.post('/updateQtype',route.updateQtype);
 
 // app.post('/takeTest',route.takeTest);
 
 var storage = multer.diskStorage({ //multers disk storage settings
 	destination: function (req, file, cb) {
-	    cb(null, './uploads/')
+	    cb(null, './public/uploads/')
 	},
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
-        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+       cb(null, file.originalname )
     }
-    });
-    var upload = multer({ //multer settings
-        storage: storage
-    }).single('file');
+});
+var upload = multer({ //multer settings
+    storage: storage
+}).single('file');
     /** API path that will upload the files */
     app.post('/upload', function(req, res) {
     upload(req,res,function(err){
@@ -88,45 +88,18 @@ var storage = multer.diskStorage({ //multers disk storage settings
              res.json({error_code:1,err_desc:err});
              return;
         }
-         res.json({error_code:0,err_desc:null});
+         res.json({error_code:0,err_desc:null, newName:res.filename});
     })
     });
 
 
 
-// //create broadcast for video streaming
-// const WebSocket = require('ws');
-// const server = http.createServer(app);
-// const wss = new WebSocket.Server({ server });
- 
-// // Broadcast to all.
-// wss.broadcast = function broadcast(data) {
-//   wss.clients.forEach(function each(client) {
-//     if (client.readyState === WebSocket.OPEN) {
-//       client.send(data);
-//     }
-//   });
-// };
- 
-// wss.on('connection', function connection(ws) {
-//   ws.on('message', function incoming(data) {
-//     // Broadcast to everyone else.
-//     wss.clients.forEach(function each(client) {
-//       if (client !== ws && client.readyState === WebSocket.OPEN) {
-//         client.send(data);
-//       }
-//     });
-//   });
-// });
 
-
-app.listen(port, function () {
+const server = http.createServer(app);
+server.listen(port, function () {
   console.log('App is listening on ' + port)
 })
 
-
-
-// const server = http.createServer(app);
 
 var fs = require('fs'),
   http = require('http'),
@@ -135,7 +108,7 @@ var fs = require('fs'),
 if (process.argv.length < 3) {
   console.log(
     'Usage: \n' +
-    'node websocket-relay.js <secret> [<stream-port> <websocket-port>]'
+    'node app.js <secret> [<stream-port> <websocket-port>]'
   );
   process.exit();
 }
@@ -186,6 +159,7 @@ socketServer.on('connection', function connection(ws) {
       }
     });
   });
+  ws.on('error', () => console.log('errored'));
 });
 
 

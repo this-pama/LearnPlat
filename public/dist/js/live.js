@@ -5,16 +5,19 @@ myApp.controller('liveController',function($http,$location,$scope){
     const stopButton = document.querySelector('#stopButton');
     console.log(id)
 
-        if(!$location.path('/live')){
-            websocket.terminate()
-        }
+        // if(!$location.path('/live')){
+        //      player.destroy()
+        //         console.log('player is destroyed')
+        // }
         $scope.noLive= false;
         $scope.live= true;
 
             var canvas = document.getElementById('video-canvas');
             var url = 'ws://'+document.location.hostname+':3002/';
-            var player = new JSMpeg.Player(url, {canvas: canvas, autoplay: false});
-            wsButton.onclick = () => {
+            var player = new JSMpeg.Player(url, {canvas: canvas, autoplay: false, disableGl: true, pauseWhenHidden: true});
+            player.volume = 1
+            wsButton.onclick= function() {
+                // var player = new JSMpeg.Player(url, {canvas: canvas, autoplay: false});
                 player.play()
                 console.log('player has started')
             }

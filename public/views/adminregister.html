@@ -2,7 +2,7 @@
     <header id="main-header" class="bg-primary text-white">
           <div class="container">
           <div class="row">
-              <h1> <a id="adminhome" href="go('/adminhome')"><i class="fa fa-user"></i>  LearnPlat Admin</a></h1>
+              <h1> <a id="adminhome" href="" ng-click="go('/adminuser')"><i class="fa fa-user"></i>  LearnPlat Admin</a></h1>
                <button ng-show="adminReg" class="btn btn-success ml-auto" ng-click=adminRegister()>Register New Admin</button>
               <button ng-show="adminLogin" class="btn btn-success ml-auto" ng-click="go('/adminuser')">Admin Login</button>
            </div>
@@ -33,6 +33,14 @@
                   <input type="text" class="form-control" ng-model="admin.name" ng-minlength="5" required>  
                 </div>
                 <div class="form-group">
+                  <label for="name" class="form-control-label">Address</label>
+                  <input type="text" class="form-control" ng-model="admin.address" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
+                  <label for="name" class="form-control-label">Phone Number</label>
+                  <input type="number" class="form-control" ng-model="admin.phoneNumber" ng-minlength="5" required>  
+                </div>
+                <div class="form-group">
                   <label for="email" class="form-control-label">Email</label>
                   <input type="email" class="form-control" ng-model="admin.email" ng-minlength="5" ng-pattern="/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/" required> 
                 </div>
@@ -45,7 +53,7 @@
                   <input type="password" class="form-control" ng-model="admin.re_pass" ng-minlength="5" required>  
                 </div>
                 <p style="color: red; font-size:13px ">{{error}}</p>
-                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!signInAdmin"> Register</button>
+                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!signInAdmin.$valid"> Register</button>
               </form>
               </div>
       			</div>

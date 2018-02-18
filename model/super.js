@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var adminSchema = mongoose.Schema({
+var superAdminSchema = mongoose.Schema({
 	fullName : String,
 	email : String,
 	pass: String,
@@ -8,5 +8,4 @@ var adminSchema = mongoose.Schema({
 	address: String
 });
 
-
-module.exports = mongoose.model('Admins',adminSchema);
+module.exports = mongoose.model('SuperAdmins',superAdminSchema);

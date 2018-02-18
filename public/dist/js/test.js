@@ -1,12 +1,12 @@
 myApp.controller('testController',function($scope,$location,$http){
     var id = sessionStorage.id;
-    var qname = sessionStorage.qname;
-    var instruction = sessionStorage.instruction;
-    var qcode= sessionStorage.qcode;
+    // var qname = sessionStorage.qname;
+    // var instruction = sessionStorage.instruction;
+    // var qcode= sessionStorage.qcode;
     $scope.qcode={name:null, code:null}
 
     if(!id){
-        console.log("Id not found "+id)
+        // console.log("Id not found "+id)
         $scope.user_in = false;
         $scope.user_out = true;
 
@@ -27,11 +27,17 @@ myApp.controller('testController',function($scope,$location,$http){
               // var qtype= res.data.q_name
               var qname= res.data.q_name
               var instruction= res.data.instruction
-              console.log("Question code and name is correct")
+              var time = res.data.time
+              var title = res.data.title
+              var randomize = res.data.randomize
+              // console.log("Question code and name is correct")
               // sessionStorage.setItem('qtype',qtype);
               sessionStorage.setItem('qname',qname);
-              sessionStorage.setItem('qcode',qcode);
+              // sessionStorage.setItem('qcode',qcode);
               sessionStorage.setItem('instruction',instruction);
+              sessionStorage.setItem('time',time);
+              sessionStorage.setItem('title',title);
+              sessionStorage.setItem('randomize',randomize);
               // console.log(instruction+"  "+ qname+"  "+qcode)
 
               $location.path('/load')

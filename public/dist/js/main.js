@@ -2,26 +2,31 @@ var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
 	.config(function($routeProvider){
 
 		$routeProvider
+		//HOME ROUTE
 			.when('/',{
 				templateUrl: 'views/main.html',
 				controller: 'mainController'
 			})
 
+			// SUPPORT ROUTE
 			.when('/support',{
 				templateUrl: 'views/support.html',
 				controller: 'supportController'
 			})
 
+			// LOAD TEST ROUTE
 			.when('/load',{
 				templateUrl: 'views/load.html',
 				controller: 'loadController'
 			})
 
+			// SHOW RESULT ROUTE
 			.when('/result',{
 				templateUrl: 'views/result.html',
 				controller: 'resultController'
 			})
 
+			// USER SIGN IN AND SIGN OUT ROUTE
 			.when('/signin',{
 				templateUrl: 'views/signin.html',
 				controller: 'signinController'
@@ -32,50 +37,63 @@ var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
 				controller: 'signoutController'
 			})
 
+			//USER REGISTER ROUTE
 			.when('/register',{
 				templateUrl: 'views/register.html',
 				controller: 'registerController'
 			})
 
-			.when('/qcode',{
-				templateUrl: 'views/qcode.html',
-				controller: 'qcodeController'
-			})
-
-			.when('/addquestion',{
-				templateUrl: 'views/addquestion.html',
-				controller: 'addqController'
-			})
-
-			.when('/test',{
-				templateUrl: 'views/test.html',
-				controller: 'testController'
-			})
-
-			.when('/adminuser',{
-				templateUrl: 'views/adminlogin.html',
-				controller: 'adminLogin'
-			})
-
-			.when('/adminhome',{
-				templateUrl: 'views/adminhome.html',
-				controller: 'adminhomeController'
-			})
-
-			.when('/adminregister',{
-				templateUrl: 'views/adminregister.html',
-				controller: 'adminRegister'
-			})
-			.when('/adminsignout',{
-				templateUrl: 'views/adminsignout.html',
-				controller: 'adminSignout'
-			})
-
+			//LIVE STREAMING ROUTE
 			.when('/live',{
 				templateUrl: 'views/live.html',
 				controller: 'liveController'
 			})
 
+
+			// .when('/qcode',{
+			// 	templateUrl: 'views/qcode.html',
+			// 	controller: 'qcodeController'
+			// })
+
+			// .when('/addquestion',{
+			// 	templateUrl: 'views/addquestion.html',
+			// 	controller: 'addqController'
+			// })
+
+			//USER TAKE TEST ROUTE
+			.when('/test',{
+				templateUrl: 'views/test.html',
+				controller: 'testController'
+			})
+
+			//ADMIN ROUTES
+			.when('/admin',{
+				templateUrl: 'views/adminlogin.html',
+				controller: 'adminLogin'
+			})
+
+			// .when('/adminregister',{
+			// 	templateUrl: 'views/adminregister.html',
+			// 	controller: 'adminRegister'
+			// })
+			.when('/adminsignout',{
+				templateUrl: 'views/adminsignout.html',
+				controller: 'adminSignout'
+			})
+
+			// SUPER ADMIN ROUTE
+			// .when('/superadmin',{
+			// 	templateUrl: 'views/superadminlogin.html',
+			// 	controller: 'superAdminLogin'
+			// })
+
+			.when('/superadminhome',{
+				templateUrl: 'views/superadminhome.html',
+				controller: 'superAdminHomeController'
+			})
+
+
+			//ERROR AND REDIRECT ROUTE
 			.when('/error',{
                 templateUrl:'views/error.html',
                 controller: 'errorController'

@@ -1,6 +1,9 @@
 myApp.controller('loadController',function($scope,$location,$http,$routeParams){
     var id = sessionStorage.id;
     var q_name = sessionStorage.qname;
+    var title = sessionStorage.title
+    var time = sessionStorage.time
+    var randomize = sessionStorage.randomize
     var q_id = parseInt($routeParams.q_id,10);
     var instruction= sessionStorage.instruction;
     var qcode= sessionStorage.qcode;
@@ -15,11 +18,11 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
 
 
     if(!id){
-        console.log("not found"+id)
+        // console.log("not found"+id)
         $scope.user_in = false;
         $scope.user_out = true;
     }else{
-        console.log("found"+id)
+        // console.log("found"+id)
 
         $scope.user_in = true;
         $scope.user_out = false;
@@ -37,16 +40,16 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
             method:"POST"
         }).then(
                 function(res){
-                    console.log("response data are below")
-                    console.log( res.data)
+                    // console.log("response data are below")
+                    // console.log('res data', res.data)
                     if(res.data){
                     $scope.quiz_model = res.data;
                  quiz_model =  $scope.quiz_model;
-                 console.log("quiz model is "+quiz_model)
+                 // console.log("quiz model is ",quiz_model)
 
                 var next = 0;
                 $scope.current_q = quiz_model[next];
-                console.log("current quiz model is "+ $scope.current_q)
+                // console.log("current quiz model is ", $scope.current_q)
 
                 $scope.prev_btn = false ;
 
@@ -66,12 +69,13 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
                  if(!$scope.u_ans){
                  $scope.err_message = "Please Select Any answer to processed  forward";
 
+
                  }else{
                  $scope.current_q = quiz_model[next_btn];
                  next = next_btn;
 
-                 var q_id =  quiz_model[next-1].id
-                 console.log("q id is  "+ q_id)
+                 var q_id =  quiz_model[next-1]._id
+                 // console.log("q id is  ", q_id)
                  var u_ans = $scope.u_ans;
                  ans_forward(q_id,u_ans);
                  $scope.u_ans = '';
@@ -87,7 +91,7 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
                  case "prev":
                  $scope.current_q = quiz_model[prev_btn];
                  next = prev_btn;
-                 console.log(quiz_model[prev_btn].id);
+                 // console.log(quiz_model[prev_btn].id);
                  break;
                  }//Switch
                  check_status();
@@ -170,13 +174,13 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
                  };
 
 
-                 console.log(riteans_perc);
+                 // console.log(riteans_perc);
                  }////checking that user have choosen any answer or not
 
                 }//generate_result();
 
                 $scope.saveResult = function(){
-                                console.log("Save Result");
+                                console.log("Result Saved");
                                 $scope.generate_result()
                     $http({
                         url:"/saveResult",
@@ -184,7 +188,7 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
                         method:"POST"
                     }).then(function(res){
 
-                            console.log(res.data);
+                            // console.log(res.data);
                         },function(res){
                          alert("Error");
                         }
@@ -203,14 +207,66 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
                 },function(res){ alert("Error")}
                 
             )
+
+            //set timer
+            if(time != null){
+                $scope.timer= true
+                function getTimeRemaining(endtime) {
+                  var t = Date.parse(endtime) - Date.parse(new Date());
+                  var seconds = Math.floor((t / 1000) % 60);
+                  var minutes = Math.floor((t / 1000 / 60) % 60);
+                  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+                  return {
+                    'total': t,
+                    'hours': hours,
+                    'minutes': minutes,
+                    'seconds': seconds
+                  };
+                }
+
+                function initializeClock(id, endtime) {
+                  var clock = document.getElementById(id);
+                  var hoursSpan = clock.querySelector('.hours');
+                  var minutesSpan = clock.querySelector('.minutes');
+                  var secondsSpan = clock.querySelector('.seconds');
+
+                  function updateClock() {
+                    var t = getTimeRemaining(endtime);
+                    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                    if (t.total <= 0) {
+                      clearInterval(timeinterval);
+                      $scope.saveResult()
+                      $scope.result_box= true
+                      $scope.quiz_box= false
+                    }
+                  }
+
+                  updateClock();
+                  var timeinterval = setInterval(updateClock, 1000);
+                }
+
+                var deadline = new Date(Date.parse(new Date()) + time * 1000);
+                initializeClock('clockdiv', deadline);
+
+            }//end of set timer
+
     }//startQuiz
+
+
+
+
+
+
 
 
     $scope.go = function (path){
         $location.path(path);
     }
      q_name.toUpperCase();
-    $scope.message = q_name+" Quiz";
+    $scope.message = title  +" Quiz";
 
 
 });

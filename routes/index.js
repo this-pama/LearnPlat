@@ -113,10 +113,13 @@ exports.getUserInfo = function(req,res){
 exports.addQname = function(req,res){
 	var q_name= req.body.q_name;
 	var q_code= req.body.q_code;
+	var time= req.body.time;
+	var title= req.body.title;
+	var randomize= req.body.randomize;
 	var instruction= req.body.instruction;
 
 //check if question type already exist
-	QuestionType.findOne({ q_name: q_name, q_code: q_code, instruction:instruction},function(err,data){
+	QuestionType.findOne({ q_name: q_name, q_code: q_code},function(err,data){
 	        if (err) {// ...
 	            console.log('An error has occurred');
 
@@ -130,7 +133,10 @@ exports.addQname = function(req,res){
 	                var q_type = new QuestionType({
 				        instruction:instruction,
 				        q_name: q_name,
-						q_code: q_code
+						q_code: q_code,
+						time:time,
+						title: title,
+						randomize: randomize
 			    	});
 
 				    q_type.save(function(err,data){
@@ -189,6 +195,11 @@ exports.addQuestion = function(req,res){
     var a_3= data.a3;
     var a_4= data.a4;
     var r_a= data.r_a;
+    var imgName = req.body.imgName
+    // var imgPath = data.imgPath
+    // var img ={}
+    // img.data = fs.readFileSync(imgPath);
+    // img.contentType = 'image/*';
     // var number= req.body.number;
     // var test= req.body.test;
 
@@ -209,7 +220,8 @@ exports.addQuestion = function(req,res){
 					        a_3: a_3,
 					        a_4: a_4,
 					        r_a: r_a,
-					        q_name:q_name
+					        q_name:q_name,
+					        imgName: imgName
 					    });
 
 				    question_info.save(function(err,data){
@@ -405,6 +417,38 @@ exports.deleteQtype= function(req,res){
 	    })
 }//End Delete Question Type
 
+
+//Update Question Type
+exports.updateQtype= function(req,res){
+	var oldQname= req.body.oldQname;
+	var q_name= req.body.q_name;
+	var q_code= req.body.q_code;
+	var time= req.body.time;
+	var title= req.body.title;
+	var randomize= req.body.randomize;
+	var instruction= req.body.instruction;
+    // find by qname
+    	QuestionType.findOneAndUpdate({ q_name: oldQname },{q_name:q_name,q_code:q_code,title:title, time:time, instruction:instruction},
+            function(err,data){
+        if (err) {// ...
+            console.log('An error has occurred');
+
+            res.send('An error has occurred'+err);
+
+        }else {
+            if(!data){
+                console.log('record not found');
+                res.send("record not found");
+            }else{
+                console.log("data == ",data);
+                res.send(data)
+
+            }
+
+        }
+
+		 })//findOneAndUpdate
+}//updateQype
 
 exports.index= function(req,res){
 	res.render('index', {title: 'LearnPlat'});

@@ -7,7 +7,7 @@ myApp.factory('userLogin',function($http,$location){
 
         //Checking Fields
         getData = function(){
-            console.log("nameDisplayOfGetDAta")
+            // console.log("nameDisplayOfGetDAta")
 
             email =  login_data.email;
             pass =  login_data.pass;
@@ -37,10 +37,10 @@ myApp.factory('userLogin',function($http,$location){
 
                         }else{
                             login_data.error= "Your Email or Password is wrong"
-                            console.log("record not found")
+                            // console.log("record not found")
                         }
 
-                        console.log(sessionStorage.id);
+                        // console.log(sessionStorage.id);
                          }, function(res){
                         // $scope.message = "error"
                             login_data.error= "Error occurred"
@@ -67,7 +67,7 @@ myApp.factory('userRegister',function($http,$location){
 
         //Checking Fields
             getData = function(){
-                console.log("displayRegisterName")
+                // console.log("displayRegisterName")
                  u_name =  register_data.u_name;
                  email =  register_data.email;
                  pass =  register_data.pass;
@@ -95,7 +95,7 @@ myApp.factory('userRegister',function($http,$location){
                                 method:"POST"
 
                                 }).then(function(res){
-                                        console.log(res.data);
+                                        // console.log(res.data);
                                          register_data.message = "Congratulation!! You are Successfully Registered  "
 
                                        $location.path('/signin');
