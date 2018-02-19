@@ -67,19 +67,19 @@ var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
 			})
 
 			//ADMIN ROUTES
-			.when('/admin',{
-				templateUrl: 'views/adminlogin.html',
-				controller: 'adminLogin'
-			})
+			// .when('/admin',{
+			// 	templateUrl: 'views/adminlogin.html',
+			// 	controller: 'adminLogin'
+			// })
 
 			// .when('/adminregister',{
 			// 	templateUrl: 'views/adminregister.html',
 			// 	controller: 'adminRegister'
 			// })
-			.when('/adminsignout',{
-				templateUrl: 'views/adminsignout.html',
-				controller: 'adminSignout'
-			})
+			// .when('/adminsignout',{
+			// 	templateUrl: 'views/adminsignout.html',
+			// 	controller: 'adminSignout'
+			// })
 
 			// SUPER ADMIN ROUTE
 			// .when('/superadmin',{
