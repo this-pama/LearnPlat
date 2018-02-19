@@ -1,5 +1,6 @@
 myApp.factory('userLogin',function($http,$location){
     var Login = {};
+    
 
     Login.UserLogin= function(){
         var u_name,email,pass,re_pass;
@@ -22,10 +23,10 @@ myApp.factory('userLogin',function($http,$location){
                  login_data.error = "Password is less than 5 character ";
             }else {login_data.error = "";
 
-                            $http({
-                    url:"/login",
-                    data:{email:email,pass:pass},
-                    method:"POST"
+                $http({
+                url:"/login",
+                data:{email:email,pass:pass},
+                method:"POST"
 
                 }).then(function(res){
                         if(res.data._id){
@@ -36,15 +37,75 @@ myApp.factory('userLogin',function($http,$location){
                         window.location = '/'
 
                         }else{
-                            login_data.error= "Your Email or Password is wrong"
+                            // login_data.error= "Your Email or Password is wrong"
                             // console.log("record not found")
+
+                                // console.log('check for user info in the admin db')
+                                $http({
+                                url:"/adminLogin",
+                                data:{email:email,pass:pass},
+                                method:"POST"
+
+                            }).then(function(res){
+                                    if(res.data._id){
+                                    var admin_id =  res.data._id;
+                                    var adminName = res.data.fullName
+                                    // console.log(res.data)
+                                    sessionStorage.setItem('admin_id',admin_id);
+                                    sessionStorage.setItem('adminName',adminName);
+
+                                    // window.location = '/'
+                                    $location.path("/superadminhome")
+
+                                    }else{
+
+                                        //check for user info in the super admin db
+                                        // console.log('check for user info in the super admin db')
+                                          $http({
+                                                url:"/superAdminLogin",
+                                                data:{email:email,pass:pass},
+                                                method:"POST"
+
+                                            }).then(function(res){
+                                                    if(res.data._id){
+                                                    var superAdmin_id =  res.data._id;
+                                                    var superAdminName = res.data.fullName
+                                                    // console.log(res.data)
+
+                                                    sessionStorage.setItem('superAdmin_id',superAdmin_id);
+                                                    sessionStorage.setItem('superAdminName',superAdminName);
+                                                    $location.path("/superadminhome")
+
+                                                    }else{
+                                                        // $scope.error= "Your Email or Password is wrong"
+                                                        login_data.error= "Your Email or Password is wrong"
+                                                        // console.log("record not found")
+                                                    }
+
+                                                    console.log(sessionStorage.id);
+                                                     }, function(res){
+                                                    // $scope.message = "error"
+                                                        login_data.error= "Error occurred"
+                                                        // console.log("Error")
+                                                })
+
+                                        // $scope.error= "Your Email or Password is wrong"
+                                        // console.log("record not found")
+                                    }
+
+                                    console.log(sessionStorage.id);
+                                }, function(res){
+                                    // $scope.message = "error"
+                                        login_data.error= "Error occurred"
+                                        // console.log("Error")
+                                })
                         }
 
                         // console.log(sessionStorage.id);
                          }, function(res){
                         // $scope.message = "error"
                             login_data.error= "Error occurred"
-                            console.log("Error")
+                            // console.log("Error")
                     })
             }
             // }

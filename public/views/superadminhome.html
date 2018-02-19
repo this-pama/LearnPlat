@@ -2,10 +2,10 @@
     
       <header id="main-header" class="bg-primary text-white">
         <div class="container">
-          <div class="row">
+          <!-- <div class="row">
               <h1> <a id="adminhome"  href="" ng-click=loadPage()><i class="fa fa-user"></i>  LearnPlat Admin</a></h1>
               <button id="adminReg" class="btn btn-success ml-auto" ng-click="go('/adminsignout')">Sign Out</button>
-           </div>
+           </div> -->
           </div>
       </header>
 
@@ -57,7 +57,7 @@
 
           <div class="card" >
             <div class="card-header">
-              Welcome!
+              Welcome <b>{{adminName}}!</b>
             </div><br>
             <div class="card-body">
               <div ng-show="adminHeader">
@@ -493,6 +493,12 @@
 
 
         <div class="col-md-2"><br><br>
+        <div class="card">
+            <div class="card-header">
+            <button class="btn btn-lg btn-primary fa fa-gear" ng-click="go('/signout')">Admin Logout</button>
+              <!-- <h4><i class="fa fa-gear"> Admin Logout</i></h4> -->
+            </div>
+          </div>
         <!-- set the number of user -->
           <div class="card">
             <div class="card-header">
@@ -502,7 +508,7 @@
               <h5 class=" text-center card-title">No. of Users</h5>
               <p class=" lead text-center card-text">{{noOfUser}}</p>
             </div>
-          </div><br><br>
+          </div><br>
               <!-- set the number of admin -->
           <div class="card">
             <div class="card-header">
@@ -512,7 +518,7 @@
               <h5 class=" text-center card-title">No. of Admin</h5>
               <p class=" lead text-center card-text">{{noOfAdmin}}</p>
             </div>
-          </div><br><br>
+          </div><br>
 
           <!-- set the number of super admin -->
           <div class="card">

@@ -1,6 +1,9 @@
 myApp.controller('superAdminHomeController',function($scope,$location,$http,$timeout,Upload,$window){
 var admin_id= sessionStorage.admin_id;
 var superAdmin_id= sessionStorage.superAdmin_id;
+var superAdminName= sessionStorage.superAdminName;
+var adminName= sessionStorage.adminName;
+
 // $scope.noOfUser = sessionStorage.noOfUser;
 // var searching = sessionStorage.searching;
 
@@ -18,6 +21,7 @@ var superAdmin_id= sessionStorage.superAdmin_id;
     $scope.l8= true
     $scope.l9= true
     $scope.adminHeader= true
+    $scope.adminName= adminName
   }else if(superAdmin_id){
     $scope.l1= true
     $scope.l2= true
@@ -34,6 +38,8 @@ var superAdmin_id= sessionStorage.superAdmin_id;
     var u_id= $scope.u_id
     var fullName = $scope.fullName
     $scope.adminHeader = true
+    $scope.adminName= superAdminName
+
 
 
 // set the number of users

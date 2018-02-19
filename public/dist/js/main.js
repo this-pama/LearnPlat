@@ -106,6 +106,8 @@ var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
 
 	myApp.controller('navController',function($scope,$location,$http){
     var id = sessionStorage.id;
+    var superAdmin_id = sessionStorage.superAdmin_id;
+    var admin_id = sessionStorage.admin_id;
     if(!id){
        // console.log("not found"+id)
        $scope.inBtn = true;
