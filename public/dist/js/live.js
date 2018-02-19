@@ -9,8 +9,9 @@ myApp.controller('liveController',function($http,$location,$scope){
         //      player.destroy()
         //         console.log('player is destroyed')
         // }
-        $scope.noLive= false;
-        $scope.live= true;
+        if(id){
+            $scope.noLive= false;
+            $scope.live= true;
 
             var canvas = document.getElementById('video-canvas');
             var url = 'ws://'+document.location.hostname+':3002/';
@@ -25,6 +26,12 @@ myApp.controller('liveController',function($http,$location,$scope){
                 player.destroy()
                 console.log('player is destroyed')
             }
+        }else{
+            $scope.noLive= true;
+            $scope.live= false;
+        }
+       
+
 
         
 
