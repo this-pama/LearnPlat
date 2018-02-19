@@ -1,6 +1,6 @@
 module.exports= function(app){
 	var mongoose = require('mongoose');
-	mongoose.connect('mongodb://pama:moronkeji@ds151820.mlab.com:51820/quizapp');
+	mongoose.connect(process.env.DB);
 	var db = mongoose.connection;
 	db.on('error',console.error.bind(console,'connection error'));
 	db.once('open',function callback(){
