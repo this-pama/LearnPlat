@@ -418,6 +418,28 @@ exports.deleteQtype= function(req,res){
 }//End Delete Question Type
 
 
+//Delete Questions
+exports.deleteQuestion= function(req,res){
+	var q_name= req.body.q_name;
+	Question.remove({q_name:q_name},function (err, data) {
+	      if (err) {// ...
+	        console.log('An error has occurred');
+	        res.send('An error has occurred'+err);
+	    }else {
+	        if(!data){
+	            console.log('record not found');
+	            res.send("record not found");
+	        }else{
+	            // console.log(data)
+	            res.send(data);
+	            }
+
+	        }
+
+	    })
+}//End Delete Question Type
+
+
 //Update Question Type
 exports.updateQtype= function(req,res){
 	var oldQname= req.body.oldQname;

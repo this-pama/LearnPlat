@@ -1,17 +1,17 @@
 <div>
    <div ng-show="user_in">
            <div class="container"> 
+           <div class="row">
            <h2>{{message}}</h2>
            <div ng-show="info_box" > 
-           {{instruction}} <br>
+           <p ng-bind-html="instruction"></p><br>
           <!-- <p>This Quiz contain 20 Question based on MCQ's.You will given 30 min for this quiz, Once you have answered a question you will not be allowed to change
           <br> its answer after moving to next question by clicking next button.</p> -->
 
            <br>
            <button id="quiz_btn" class="btn btn-primary" ng-click="startQuiz()"> Start Quiz</button>
            </div>
-           <div ng-show="quiz_box">
-           <div class="row">
+
                <div class="ml-auto" id="clockdiv" ng-show="timer">
                 <div>
                   <span class="hours"></span>
@@ -27,15 +27,17 @@
                 </div>
               </div>
            </div>
+           <div ng-show="quiz_box">
+
 
                <div > 
                    <img ng-src="../uploads/{{current_q.imgName}}" alt=""><br>
-                   <p>Q:{{current_q.question}} ?</p>
+                   <p ng-bind-html="current_q.question"></p>
                    <ul style="list-style: none;">
-                       <li><input type="radio" ng-model="u_ans" value="a1"  name="u_a" style="padding-right: 30px" /> {{current_q.a_1}}</li>
-                       <li><input type="radio" ng-model="u_ans" value="a2" name="u_a" /> {{current_q.a_2}}</li>
-                       <li><input type="radio" ng-model="u_ans" value="a3" name="u_a" /> {{current_q.a_3}}</li>
-                       <li><input type="radio" ng-model="u_ans" value="a4" name="u_a" /> {{current_q.a_4}}</li>
+                       <li ><input type="radio" ng-model="u_ans" value="a1"  name="u_a" style="padding-right: 30px"  / >   <ng-bind-html ng-bind-html="current_q.a_1"></ng-bind-html></li>
+                       <li><input type="radio" ng-model="u_ans" value="a2" name="u_a"  />  <ng-bind-html ng-bind-html="current_q.a_2"></ng-bind-html></li>
+                       <li><input type="radio" ng-model="u_ans" value="a3" name="u_a" />  <ng-bind-html ng-bind-html="current_q.a_3" ></ng-bind-html></li>
+                       <li><input type="radio" ng-model="u_ans" value="a4" name="u_a"/>  <ng-bind-html ng-bind-html="current_q.a_4"></ng-bind-html>  </li>
                    </ul>
                </div>
                <p style="color: red">{{err_message}}</p>

@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload'])
+var myApp = angular.module("myApp",["ui.bootstrap",'ngRoute','ngFileUpload','ngCkeditor','ngSanitize'])
 	.config(function($routeProvider){
 
 		$routeProvider

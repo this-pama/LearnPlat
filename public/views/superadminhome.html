@@ -226,7 +226,7 @@
         <!-- Question Code session -->
           <div class="container" ng-show='qType'>
           <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div >
               <div class="card-hearder">
                <h5>Question Username & Access Code</h5>
               </div>
@@ -240,7 +240,7 @@
                   <input type="number" class="form-control" placeholder="Set Time in Seconds to Take Test (Optional)" ng-model="qcode.time" required> 
                 </div>
                 <div class="form-group">
-                  <label class="mr-sm-2" for="inlineFormCustomSelect">Randomize Question for users</label>
+                  <label class="mr-sm-2 form-control" for="inlineFormCustomSelect">Randomize Question for users</label>
                   <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="randomize">
                     <option selected>Choose...</option>
                     <option value="1">Yes</option>
@@ -248,7 +248,12 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <textarea type="text" class="form-control" placeholder="Question Instruction (Optional)" ng-model="qcode.instruction" ng-minlength="4"></textarea>
+                <label for="QType" class="form-control-label">Question Instruction</label><br>
+                <textarea type="text" class="form-control" cols="30" rows="10" ckeditor="editorOptions" name="editor1" class="input-block-level" placeholder="Question Instruction (Optional)" ng-model="qcode.instruction"  required></textarea>
+                <!-- <script>
+                  CKEDITOR.replace('editor1');
+                  </script> -->
+                  <!-- <textarea type="text" class="form-control" placeholder="Question Instruction (Optional)" ng-model="qcode.instruction" ng-minlength="4"></textarea> -->
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="Question Name" ng-model="qcode.name" ng-minlength="4" required> 
@@ -257,7 +262,7 @@
                   <input type="text" class="form-control" placeholder="Access Code" ng-model="qcode.code" ng-minlength="4" required> 
                 </div>
                 <p style="color: red; font-size:13px ">{{error}}</p>
-                <button class="btn btn-primary btn-block mb-3" type="submit" ng-disabled="!createQcodeForm.$valid"> Create</button>
+                <button class="btn btn-primary btn-block mb-3" type="submit" > Create</button>
               </form>
               </div>
             </div>
@@ -276,7 +281,7 @@
             <p style="color: blue">Please check the correct answer</p>         
             <div class="form-group bg-faded p-3">
                 <label for="Question" class="form-control-label">Question</label><br>
-                <textarea type="text" class="form-control" cols="30" rows="10" name="editor1" class="input-block-level" placeholder="Question" ng-model="question.q"  required></textarea>
+                <textarea type="text" class="form-control" cols="30" rows="10" ckeditor="editorOptions" name="editor1" class="input-block-level" placeholder="Question" ng-model="question.q"  required></textarea>
                 <!-- <script>
                   CKEDITOR.replace('editor1');
                   </script> -->

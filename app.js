@@ -66,6 +66,7 @@ app.post('/adminList',admin.adminList);
 app.post('/findAdmin',admin.findAdmin);
 app.post('/deleteAdmin',admin.deleteAdmin);
 app.post('/deleteQtype',route.deleteQtype);
+app.post('/deleteQuestion',route.deleteQuestion);
 app.post('/updateAdmin',admin.updateAdmin);
 app.post('/updateQtype',route.updateQtype);
 

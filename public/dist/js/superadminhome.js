@@ -41,6 +41,14 @@ var adminName= sessionStorage.adminName;
     $scope.adminName= superAdminName
 
 
+ $scope.editorOptions = {
+                language: 'ru'
+               // uiColor: '#000000'
+            };
+            $scope.$on("ckeditor.ready", function( event ) {
+                $scope.isReady = true;
+            });
+
 
 // set the number of users
     var numberOfUser= function(){
@@ -592,12 +600,20 @@ $scope.deleteQtype = function(){
          }).then(function(res){
                  if(res.data.n == 1){
                   // console.log(res.data)
+                   $http({
+                     url:"/deleteQuestion",
+                     data:{q_name: qname},
+                     method:"POST"
+                 }).then(function(res){
+                          console.log(res.data)
+                     },function(res){ console.log("Internal Error occurred");  })//http request to delete question
+
                   $scope.deleteQtypeSuccess = "Successfully Deleted"
                   $scope.getQuestionList()
                   }else{
                   $scope.deleteQtypeError = "No Record Found"
                   }
-             },function(res){ console.log("Internal Error occurred");  })//http request to delete user
+             },function(res){ console.log("Internal Error occurred");  })//http request to delete Qtype
 }// end of delete Qtype
 
 
