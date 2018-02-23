@@ -23,6 +23,7 @@ var adminName= sessionStorage.adminName;
     $scope.Q1 = true
     $scope.adminHeader= true
     $scope.adminName= adminName
+    $scope.showQuestion = false
   }else if(superAdmin_id){
     $scope.l1= true
     $scope.l2= true
@@ -35,6 +36,7 @@ var adminName= sessionStorage.adminName;
     $scope.l9= true
     $scope.Q1 = true
     $scope.adminHeader= true
+    $scope.showQuestion = false
     var email = $scope.email
     var pass = $scope.pass
     var u_id= $scope.u_id
@@ -124,6 +126,7 @@ var adminName= sessionStorage.adminName;
         $scope.qList= false
         $scope.registerSuper= false;
         $scope.uploadvideo= false
+        $scope.showQuestion = false
         $http({
              url:"/findAllUser",
              data:{},
@@ -159,6 +162,7 @@ var adminName= sessionStorage.adminName;
         $scope.qList= false
         $scope.registerSuper= false;
         $scope.uploadvideo= false
+        $scope.showQuestion = false
 
         $http({
              url:"/adminList",
@@ -264,6 +268,7 @@ $scope.showRegAdmin= function(){
       $scope.qList= false
       $scope.registerSuper= false;
       $scope.uploadvideo= false
+      $scope.showQuestion = false
 }
 
 //show register super admin page
@@ -282,6 +287,7 @@ $scope.showRegSuperAdmin= function(){
       $scope.qList= false
       $scope.registerSuper= true;
       $scope.uploadvideo= false
+      $scope.showQuestion = false
 }
 
 //show Qtype session
@@ -300,6 +306,7 @@ $scope.showQtype= function(){
       $scope.qList= false
       $scope.registerSuper= false;
       $scope.uploadvideo= false
+      $scope.showQuestion = false
 }
 //show add question session
 //show Qtype session
@@ -318,6 +325,7 @@ $scope.showAddQuestion= function(){
       $scope.qList= false
       $scope.registerSuper= false;
       $scope.uploadvideo= false
+      $scope.showQuestion = false
 }
 
 $scope.showQuestionList= function(){
@@ -335,6 +343,7 @@ $scope.showQuestionList= function(){
       $scope.qList= true
       $scope.registerSuper= false;
       $scope.uploadvideo= false
+      $scope.showQuestion = false
 }
 
 $scope.showUploadVideo= function(){
@@ -352,6 +361,7 @@ $scope.showUploadVideo= function(){
       $scope.qList= false
       $scope.registerSuper= false;
       $scope.uploadvideo= true
+      $scope.showQuestion = false
 }
 $scope.registerAdmin = function(){
       var email = $scope.email;
@@ -532,6 +542,7 @@ $scope.addQuestion = function(){
           $scope.qList= true
           $scope.registerSuper= false;
           $scope.uploadvideo= false
+          $scope.showQuestion = false
         $http({
              url:"/getQuestionType",
              data:{},
@@ -762,20 +773,20 @@ $scope.viewQuestion = function(){
                   $scope.questions= res.data
                   $scope.showQuestion = true
                   $scope.viewError = "Successfully."
-      //               $scope.register= false;
-      //   $scope.qType= true;
-      // $scope.addquestion= false;
-      // $scope.search= false;
-      // $scope.adminSearch= false;
-      // $scope.user= false;
-      // $scope.allUser= false;
-      // $scope.allAdmin= false;
+                    $scope.register= false;
+        $scope.qType= false;
+      $scope.addquestion= false;
+      $scope.search= false;
+      $scope.adminSearch= false;
+      $scope.user= false;
+      $scope.allUser= false;
+      $scope.allAdmin= false;
       $scope.adminHeader= false
-      // $scope.user = false;
-      // $scope.admin = false;
-      // $scope.qList= false
-      // $scope.registerSuper= false;
-      // $scope.uploadvideo= false
+      $scope.user = false;
+      $scope.admin = false;
+      $scope.qList= false
+      $scope.registerSuper= false;
+      $scope.uploadvideo= false
     
                   }else{
                   $scope.viewError = "No Record Found"
