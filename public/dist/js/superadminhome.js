@@ -20,6 +20,7 @@ var adminName= sessionStorage.adminName;
     $scope.l7= false
     $scope.l8= true
     $scope.l9= true
+    $scope.Q1 = true
     $scope.adminHeader= true
     $scope.adminName= adminName
   }else if(superAdmin_id){
@@ -32,6 +33,7 @@ var adminName= sessionStorage.adminName;
     $scope.l7= true
     $scope.l8= true
     $scope.l9= true
+    $scope.Q1 = true
     $scope.adminHeader= true
     var email = $scope.email
     var pass = $scope.pass
@@ -743,6 +745,43 @@ $scope.registerSuperAdmin = function(){
     }
     // }
 }//registerNewSuperAdmin
+
+
+//View all question using question username
+$scope.viewQuestion = function(){
+  var q_name = $scope.viewQuestionModel
+  // $scope.deleteUserSuccess = ""
+  $scope.viewError = ""
+        $http({
+             url:"/load",
+             data:{q_name: q_name},
+             method:"POST"
+         }).then(function(res){
+                 if(res.data){
+                  // console.log(res.data)
+                  $scope.questions= res.data
+                  $scope.showQuestion = true
+                  $scope.viewError = "Successfully."
+      //               $scope.register= false;
+      //   $scope.qType= true;
+      // $scope.addquestion= false;
+      // $scope.search= false;
+      // $scope.adminSearch= false;
+      // $scope.user= false;
+      // $scope.allUser= false;
+      // $scope.allAdmin= false;
+      $scope.adminHeader= false
+      // $scope.user = false;
+      // $scope.admin = false;
+      // $scope.qList= false
+      // $scope.registerSuper= false;
+      // $scope.uploadvideo= false
+    
+                  }else{
+                  $scope.viewError = "No Record Found"
+                  }
+             },function(res){ console.log("Internal Error occurred");  })//http request to delete user
+}// end of delete user
 
 
 //load page again

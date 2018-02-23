@@ -14,10 +14,11 @@
 
           <div class="card p-3" style="width: 18rem;">
             <div class="card-header">
-              Admin
+              <b>Admin</b>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item" ng-show="l1"><a href="" ng-click=getQuestionList() >List of Questions</a></li>
+              <li class="list-group-item" ng-show="Q1"><a href="" data-toggle="modal" data-target="#questionModal">View Questions</a></li>
               <li class="list-group-item" ng-show="l2"><a href="" >List of Videos</a></li>
               <li class="list-group-item" ng-show="l3"><a href=""  ng-click=showUploadVideo() >Upload Video</a></li>
               <li class="list-group-item" ng-show="l4"><a href="" ng-click=findAllUser()>Users</a></li>
@@ -493,6 +494,21 @@
 </div>
 
 
+<!-- SHOW QUESTIONS -->
+ <div ng-repeat="current_q in questions track by $id(current_q)" ng-show='showQuestion' > 
+     <img ng-src="../uploads/{{current_q.imgName}}" alt=""><br>
+     <p ng-bind-html="current_q.question"></p>
+     <ul style="list-style: none;">
+         <li ><input type="radio" ng-model="u_ans" value="a1"  name="u_a" style="padding-right: 30px"  / >   <ng-bind-html ng-bind-html="current_q.a_1"></ng-bind-html></li>
+         <li><input type="radio" ng-model="u_ans" value="a2" name="u_a"  />  <ng-bind-html ng-bind-html="current_q.a_2"></ng-bind-html></li>
+         <li><input type="radio" ng-model="u_ans" value="a3" name="u_a" />  <ng-bind-html ng-bind-html="current_q.a_3" ></ng-bind-html></li>
+         <li><input type="radio" ng-model="u_ans" value="a4" name="u_a"/>  <ng-bind-html ng-bind-html="current_q.a_4"></ng-bind-html>  </li>
+     </ul>
+     <hr>
+     <!-- <span style="color: red">{{viewError}}</span> -->
+ </div>
+
+
   </div> <!-- end of container -->
   </div> <!-- <-end of col-md-7 -->
 
@@ -778,4 +794,32 @@
 </div>
 </div>
 
+
+    <!--View Question Modal -->
+      <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="questionModalLabel">View All Questions</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <p class="lead">Please type Question Username to View</p>
+              <form action="" ng-submit=viewQuestion() name="viewQuestionForm">
+                <div class="form-group">
+                  <label for="text" class="form-control-label">Question Username</label>
+                  <input type="text" class="form-control" ng-model="viewQuestionModel"  required> 
+                </div>
+              </form>
+              <p style="color: red">{{viewError}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" ng-click='viewQuestion()' ng-disable="!viewQuestionForm.$valid">View</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
