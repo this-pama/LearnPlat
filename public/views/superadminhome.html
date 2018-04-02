@@ -33,30 +33,35 @@
         <div class="col-md-7 col-sm-10">
         <div class="container"><br><br>
         <!-- //search form -->
-          <form action="" class="form-control" ng-show="search" ng-submit=findUser()>
-          <div class="d-flex flex-row">
-          <div class="col-md-10">
-          <input type="text" class="form-control" ng-model='searchUser' placeholder="Search User by Email"> 
-          </div>
-          <div class="col-md-2">
-          <button class="btn btn-primary d-flex" type="submit" ><i class="fa fa-search" aria-hidden="true"> Search</i></button>
-          </div>
-          </div>
-        </form>  
+          <div class="container">
+            <form action="" class="form-control" ng-show="search" ng-submit=findUser()>
+              <div class="d-flex flex-row">
+              <div class="col-md-10">
+              <input type="text" class="form-control" ng-model='searchUser' placeholder="Search User by Email"> 
+              </div>
+              <div class="col-md-2">
+              <button class="btn btn-primary d-flex" type="submit" ><i class="fa fa-search" aria-hidden="true"> Search</i></button>
+              </div>
+              </div>
+            </form> 
+          </div> 
 
         <!-- //Admin search form -->
-          <form action="" class="form-control" ng-show="adminSearch" ng-submit=findAdmin()>
-          <div class="d-flex flex-row">
-          <div class="col-md-10">
-          <input type="text" class="form-control" ng-model='searchAdmin' placeholder="Search Admin by Email"> 
+          <div class="container">
+            <form action="" class="form-control" ng-show="adminSearch" ng-submit=findAdmin()>
+              <div class="d-flex flex-row">
+              <div class="col-md-10">
+              <input type="text" class="form-control" ng-model='searchAdmin' placeholder="Search Admin by Email"> 
+              </div>
+              <div class="col-md-2">
+              <button class="btn btn-primary d-flex" type="submit"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
+              </div>
+              </div>
+            </form> 
           </div>
-          <div class="col-md-2">
-          <button class="btn btn-primary d-flex" type="submit"><i class="fa fa-search" aria-hidden="true"> Search</i></button>
-          </div>
-          </div>
-        </form> 
 
-          <div class="card" >
+          <div class="container">
+            <div class="card" >
             <div class="card-header">
               Welcome <b>{{adminName}}!</b>
             </div><br>
@@ -68,8 +73,10 @@
               </div>
             </div>
           </div>
+          </div>
               <!-- All users table -->
-              <div ng-show="allUser">
+              <div class="container">
+                <div ng-show="allUser">
                    <div class="container mb-3">
                       <h1><i class="fa fa-users"> Users</i></h1>
 
@@ -103,41 +110,44 @@
                       </table>
                   </div>
                 </div>
-                 <!--  Find a user -->
-                  <div ng-show="user">
-                   <div class="container mb-3">
-                      <h1><i class="fa fa-user"> User</i></h1>
-                      <p style="color: red">{{errorMessage}}</p>
-                      <table class="table">
-                        <thead class="thead-inverse">
-                          <tr>
-                              <th>S.NO</th>
-                              <th>Name</th>
-                              <th>Email</th>
-                              <th>Password</th>
-                              <th>Tel:</th>
-                              <th>Delete</th>
-                              <th>Update</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                              <tr ng-repeat="g in searchResult track by $id(g)">
-                                  <td>{{$index+1}}</td>
-                                  <td>{{g.fullName}}</td>
-                                  <td>{{g.email}}</td>
-                                  <td>{{g.pass}}</td>
-                                  <td>{{g.phoneNumber}}</td>
-                                  <!-- <td>{{g._id}}</td> -->
-                                  <td data-toggle="modal" data-target="#exampleModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                                  <td data-toggle="modal" data-target="#updateUserModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                              </tr>
-                          </tr>
-                          
-                        </tbody>
-                      </table>
-                  </div>
               </div>
+                 <!--  Find a user -->
+                  <div class="container">
+                    <div ng-show="user">
+                       <div class="container mb-3">
+                          <h1><i class="fa fa-user"> User</i></h1>
+                          <p style="color: red">{{errorMessage}}</p>
+                          <table class="table">
+                            <thead class="thead-inverse">
+                              <tr>
+                                  <th>S.NO</th>
+                                  <th>Name</th>
+                                  <th>Email</th>
+                                  <th>Password</th>
+                                  <th>Tel:</th>
+                                  <th>Delete</th>
+                                  <th>Update</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                  <tr ng-repeat="g in searchResult track by $id(g)">
+                                      <td>{{$index+1}}</td>
+                                      <td>{{g.fullName}}</td>
+                                      <td>{{g.email}}</td>
+                                      <td>{{g.pass}}</td>
+                                      <td>{{g.phoneNumber}}</td>
+                                      <!-- <td>{{g._id}}</td> -->
+                                      <td data-toggle="modal" data-target="#exampleModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                      <td data-toggle="modal" data-target="#updateUserModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                                  </tr>
+                              </tr>
+                              
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
+                  </div>
 
           <!-- Register New Admin -->
           <div class="container" ng-show='register'>
@@ -229,7 +239,7 @@
           <div class="row">
             <div >
               <div class="card-hearder">
-               <h5>Question Username & Access Code</h5>
+               <h5 class="pl-3 pt-2">Question Username & Access Code</h5>
               </div>
               <div class="card-block">
                 <form  name="createQcodeForm" ng-submit="createQtype()">
@@ -381,79 +391,83 @@
     </div>
 
         <!-- All Admin table -->
-    <div ng-show="allAdmin">
-         <div class="container mb-3">
-            <h1><i class="fa fa-users"> Admin</i></h1>
+        <div class="container">
+            <div ng-show="allAdmin">
+             <div class="container mb-3">
+                <h1><i class="fa fa-users"> Admin</i></h1>
 
-            <table class="table">
-              <thead class="thead-inverse">
-                <tr>
-                    <th>S.NO</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Tel:</th>
-                    <!-- <th>_Id</th> -->
-                    <th>Delete</th>
-                    <th>Update</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                    <tr ng-repeat="g in allAdmin track by $id(g)">
-                        <td>{{$index+1}}</td>
-                        <td>{{g.fullName}}</td>
-                        <td>{{g.email}}</td>
-                        <td>{{g.pass}}</td>
-                        <td>{{g.phoneNumber}}</td>
-                       <!--  <td>{{g._id}}</td> -->
-                        <td data-toggle="modal" data-target="#adminModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                        <td data-toggle="modal" data-target="#updateAdminModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                <table class="table">
+                  <thead class="thead-inverse">
+                    <tr>
+                        <th>S.NO</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Tel:</th>
+                        <!-- <th>_Id</th> -->
+                        <th>Delete</th>
+                        <th>Update</th>
                     </tr>
-                </tr>
-                
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <tr ng-repeat="g in allAdmin track by $id(g)">
+                            <td>{{$index+1}}</td>
+                            <td>{{g.fullName}}</td>
+                            <td>{{g.email}}</td>
+                            <td>{{g.pass}}</td>
+                            <td>{{g.phoneNumber}}</td>
+                           <!--  <td>{{g._id}}</td> -->
+                            <td data-toggle="modal" data-target="#adminModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                            <td data-toggle="modal" data-target="#updateAdminModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                        </tr>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+            </div>
+          </div>
         </div>
-    </div>
 
 
 
       <!--  Find Admin -->
-      <div ng-show="admin">
-       <div class="container mb-3">
-          <h1><i class="fa fa-user"> Admin</i></h1>
-          <p style="color: red">{{errorMessage}}</p>
-          <table class="table">
-            <thead class="thead-inverse">
-              <tr>
-                  <th>S.NO</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Password</th>
-                  <th>Tel:</th>
-                  <th>Delete</th>
-                  <th>Update</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                  <tr ng-repeat="g in searchResultAdmin track by $id(g)">
-                      <td>{{$index+1}}</td>
-                      <td>{{g.fullName}}</td>
-                      <td>{{g.email}}</td>
-                      <td>{{g.pass}}</td>
-                      <td>{{g.phoneNumber}}</td>
-                      <!-- <td>{{g._id}}</td> -->
-                      <td data-toggle="modal" data-target="#adminModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-                      <td data-toggle="modal" data-target="#updateAdminModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                  </tr>
-              </tr>
-              
-            </tbody>
-          </table>
-      </div>
-    </div>
+        <div class="container">
+           <div ng-show="admin">
+             <div class="container mb-3">
+                <h1><i class="fa fa-user"> Admin</i></h1>
+                <p style="color: red">{{errorMessage}}</p>
+                <table class="table">
+                  <thead class="thead-inverse">
+                    <tr>
+                        <th>S.NO</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Tel:</th>
+                        <th>Delete</th>
+                        <th>Update</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <tr ng-repeat="g in searchResultAdmin track by $id(g)">
+                            <td>{{$index+1}}</td>
+                            <td>{{g.fullName}}</td>
+                            <td>{{g.email}}</td>
+                            <td>{{g.pass}}</td>
+                            <td>{{g.phoneNumber}}</td>
+                            <!-- <td>{{g._id}}</td> -->
+                            <td data-toggle="modal" data-target="#adminModal"><a href=""><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                            <td data-toggle="modal" data-target="#updateAdminModal"><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                        </tr>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
 
 
       <!-- //UPLOAD VIDEO -->

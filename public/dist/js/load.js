@@ -45,7 +45,7 @@ myApp.controller('loadController',function($scope,$location,$http,$routeParams){
                     if(res.data){
                     $scope.quiz_model = res.data;
                  quiz_model =  $scope.quiz_model;
-                 // console.log("quiz model is ",quiz_model)
+                 console.log("quiz model is ",quiz_model)
 
                 var next = 0;
                 $scope.current_q = quiz_model[next];

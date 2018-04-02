@@ -46,7 +46,7 @@ var adminName= sessionStorage.adminName;
 
 
  $scope.editorOptions = {
-                language: 'ru'
+                language: 'en'
                // uiColor: '#000000'
             };
             $scope.$on("ckeditor.ready", function( event ) {
@@ -470,7 +470,7 @@ $scope.addQuestion = function(){
           var addquestion = function(imgUrl){
             // handle posting of question
             var imgName = imgUrl
-             console.log("imgName 2 ", imgName)
+             // console.log("imgName 2 ", imgName)
              var question = $scope.question;
              $scope.error = "";
              console.log(question);
@@ -491,7 +491,7 @@ $scope.addQuestion = function(){
 
                  },function(res){ alert("Internal Error occurred");  })//http request to send data to server to save in db
           }
-          
+          // check if picFile is not empty and upload accordingly
               if(picFile!= null){
                          picFile.upload = Upload.upload({
                           url: '/upload',
@@ -501,7 +501,10 @@ $scope.addQuestion = function(){
                           if(resp.data.error_code === 0){ //validate success
                             console.log('Success ' + resp.config.data.file.name +  ' uploaded. Response: ');
                            var imgName = resp.config.data.file.name
-                           addquestion(imgName)
+                           var filePath = resp.data.filePath
+                           // console.log('filePath ', filePath)
+                           // console.log('resp ', resp)
+                           addquestion(filePath)
 
                           } else {
                               $window.alert('Image Upload Failed');
@@ -769,7 +772,7 @@ $scope.viewQuestion = function(){
              method:"POST"
          }).then(function(res){
                  if(res.data){
-                  // console.log(res.data)
+                  console.log(res.data)
                   $scope.questions= res.data
                   $scope.showQuestion = true
                   $scope.viewError = "Successfully."

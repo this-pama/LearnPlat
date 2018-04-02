@@ -78,22 +78,42 @@ var storage = multer.diskStorage({ //multers disk storage settings
 	},
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
-       cb(null, file.originalname )
+       cb(null, file.fieldname + '-' + datetimestamp + file.originalname  )
     }
 });
 var upload = multer({ //multer settings
     storage: storage
 }).single('file');
-    /** API path that will upload the files */
-    app.post('/upload', function(req, res) {
-    upload(req,res,function(err){
-        if(err){
-             res.json({error_code:1,err_desc:err});
-             return;
-        }
-         res.json({error_code:0,err_desc:null, newName:res.filename});
-    })
-    });
+
+/** API path that will upload the files */
+app.post('/upload', function(req, res) {
+   // if (!req.file) {
+   //  console.log("No file received");
+   //  return res.send({
+   //    success: false
+   //  }) }else {
+       upload(req,res,function(err){
+        if (!req.file) {
+          console.log("No file received");
+          return res.send({
+           success: false
+         }) }else if(err){
+               res.json({error_code:1,err_desc:err});
+             }else{
+               // const host = req.host;
+                // const filePath = req.protocol + "://" + host + '/' + req.file.path;
+                const filePathNew = req.file.path;
+                const filePath = filePathNew.slice(15)
+          console.log('file path is', filePath)
+           res.send({error_code:0,err_desc:null, filePath: filePath});
+           // console.log('response', res.json)
+               return;
+          }
+          
+        })
+    // }
+ 
+});
 
 
 
