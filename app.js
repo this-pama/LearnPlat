@@ -70,8 +70,7 @@ app.post('/deleteQuestion',route.deleteQuestion);
 app.post('/updateAdmin',admin.updateAdmin);
 app.post('/updateQtype',route.updateQtype);
 
-// app.post('/takeTest',route.takeTest);
-
+//storage declaration
 var storage = multer.diskStorage({ //multers disk storage settings
 	destination: function (req, file, cb) {
 	    cb(null, './public/uploads/')
@@ -104,7 +103,7 @@ app.post('/upload', function(req, res) {
                 // const filePath = req.protocol + "://" + host + '/' + req.file.path;
                 const filePathNew = req.file.path;
                 const filePath = filePathNew.slice(15)
-          console.log('file path is', filePath)
+          // console.log('file path is', filePath)
            res.send({error_code:0,err_desc:null, filePath: filePath});
            // console.log('response', res.json)
                return;

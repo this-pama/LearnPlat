@@ -772,7 +772,7 @@ $scope.viewQuestion = function(){
              method:"POST"
          }).then(function(res){
                  if(res.data){
-                  console.log(res.data)
+                  // console.log(res.data)
                   $scope.questions= res.data
                   $scope.showQuestion = true
                   $scope.viewError = "Successfully."
